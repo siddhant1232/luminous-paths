@@ -103,3 +103,6 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+.text-shadow-grey-soft {
+  text-shadow: 0 2px 8px rgba(120, 120, 120, 0.35);
+}
