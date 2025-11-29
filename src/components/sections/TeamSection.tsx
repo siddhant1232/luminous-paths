@@ -41,7 +41,7 @@ function TeamSection() {
       className="
         relative flex w-full items-center justify-center overflow-hidden
         p-6 sm:p-10
-        min-h-[520px] sm:min-h-[600px] lg:min-h-[700px]
+        min-h-[520px] sm:min-h-[600px] lg:min-h-[700px] bg-gradient-to-br from-neutral-50 to-blue-50/40
       "
     >
       <div
