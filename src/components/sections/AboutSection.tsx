@@ -1,4 +1,4 @@
-"use client";
+
 
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -12,28 +12,37 @@ import {
   Bell,
 } from "lucide-react";
 
+/* ----------- IMPORT YOUR IMAGES HERE ----------- */
+import radioImg from "../../assets/radio.jpg";
+import autoSwitchImg from "../../assets/auto-switch.jpg";
+import battlefieldImg from "../../assets/battlefield.jpg";
+
 /* ------------------ DATA ------------------ */
 
 type Feature = {
   title: string;
   description: string;
+  image: string;
 };
 
 const FEATURES: Feature[] = [
   {
     title: "Seamless two-way radio",
     description:
-      "Command the field with seamless two-way communication over VHF/UHF networks. Experience brutal clarity, precision noise suppression, and ironclad encrypted links. Purpose-built for operations where range, reliability, and security must outperform everything else."
+      "Command the field with seamless two-way communication over VHF/UHF networks. Experience brutal clarity, precision noise suppression, and ironclad encrypted links. Purpose-built for operations where range, reliability, and security must outperform everything else.",
+    image: radioImg,
   },
   {
     title: "Multi-network auto-switch",
     description:
-      "Command the field with seamless two-way communication over VHF/UHF networks.Experience brutal clarity, precision noise suppression, and ironclad encrypted links.Purpose-built for operations where range, reliability, and security must outperform everything else.",
+      "Command the field with seamless two-way communication over VHF/UHF networks. Experience brutal clarity, precision noise suppression, and ironclad encrypted links. Purpose-built for operations where range, reliability, and security must outperform everything else.",
+    image: autoSwitchImg,
   },
   {
     title: "Built for the battlefield",
     description:
-      "Command the field with seamless two-way communication over VHF/UHF networks.Experience brutal clarity, precision noise suppression, and ironclad encrypted links.Purpose-built for operations where range, reliability, and security must outperform everything else.",
+      "Command the field with seamless two-way communication over VHF/UHF networks. Experience brutal clarity, precision noise suppression, and ironclad encrypted links. Purpose-built for operations where range, reliability, and security must outperform everything else.",
+    image: battlefieldImg,
   },
 ];
 
@@ -88,12 +97,12 @@ function useReveal() {
 
 export default function AboutSection() {
   return (
-    <section className="relative py-40 text-neutral-900">
-      {/* Soft top gradient */}
+    <section id="about" className="relative py-40 text-neutral-900">
       <div className="pointer-events-none absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-neutral-50 via-transparent to-transparent" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-36">
-        {/* ===================== FEATURE ROWS ===================== */}
+        
+        {/* =============== FEATURE ROWS =============== */}
         {FEATURES.map((feature, index) => {
           const isReverse = index % 2 === 1;
           const [ref, visible] = useReveal();
@@ -104,7 +113,7 @@ export default function AboutSection() {
               key={feature.title}
               className={`
                 grid grid-cols-1 md:grid-cols-2 items-center gap-24 
-                transition-all duration-[900ms] ease-out
+                transition-all duration-[900ms] ease-out 
                 ${
                   visible
                     ? "opacity-100 translate-y-0"
@@ -127,16 +136,18 @@ export default function AboutSection() {
                 </p>
               </div>
 
-              {/* IMAGE / BOX */}
+              {/* IMAGE BOX */}
               <div
                 className={`flex ${
                   isReverse ? "justify-start" : "justify-end"
                 } ${isReverse ? "md:order-1" : "md:order-2"}`}
               >
-                <div
+                <img
+                  src={feature.image}
+                  alt={feature.title}
                   className="
                     w-44 h-44 sm:w-60 sm:h-60 lg:w-80 lg:h-80 
-                    rounded-[32px] bg-neutral-200 
+                    rounded-[32px] bg-neutral-200 object-cover
                     shadow-[0_18px_40px_rgba(0,0,0,0.2)]
                     hover:shadow-[0_24px_50px_rgba(0,0,0,0.28)]
                     transition-all duration-300
@@ -147,7 +158,7 @@ export default function AboutSection() {
           );
         })}
 
-        {/* ===================== STEP CARDS ===================== */}
+        {/* ===================== OTHER SECTIONS ===================== */}
         <div className="space-y-28">
           <StepCards />
           <FeaturesGrid />

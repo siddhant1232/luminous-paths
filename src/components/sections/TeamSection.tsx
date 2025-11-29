@@ -36,7 +36,7 @@ function TeamSection() {
   const div7Ref = useRef<HTMLDivElement>(null);
 
   return (
-    <div
+    <section id="team"
       ref={containerRef}
       className="
         relative flex w-full items-center justify-center overflow-hidden
@@ -120,7 +120,7 @@ function TeamSection() {
         endYOffset={10}
         reverse
       />
-    </div>
+    </section>
   );
 }
 
