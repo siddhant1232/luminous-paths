@@ -24,7 +24,7 @@ const Home: React.FC = () => {
             <div className="flex items-center gap-4">
               <div className="flex h-20 w-20 items-center justify-center">
                 <img 
-                  src="https://res.cloudinary.com/dxtewwe9a/image/upload/v1764359375/teamicon_f5ttgc.jpg" 
+                  src="https://res.cloudinary.com/dxtewwe9a/image/upload/v1764396504/teamicon_feiai7.png" 
                   alt="Play Metrics Logo"
                   className="h-18 w-18 object-contain rounded-xl shadow-transparent transition-all duration-300 hover:scale-105 hover:shadow-2xl"
                 />
