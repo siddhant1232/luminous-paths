@@ -1061,6 +1061,30 @@ const getNameParts = (fullName?: string) => {
   };
 };
 
+// per-person tagline
+const getTaglineForItem = (item?: MenuItem) => {
+  if (!item) return "";
+
+  switch (item.title) {
+    case "Siddhant Gupta":
+      return "Crafting seamless digital experiences and guiding the team toward cleaner, smarter engineering.";
+    case "Rohit Sharma":
+      return "Building reliable hardware systems that turn ideas into powerful, real-world solutions.";
+    case "Srijan Prasad":
+      return "Leading with clarity and purpose, keeping every member aligned with the bigger goal.";
+    case "Siddharth Mishra":
+      return "Designing intuitive app experiences that feel fast, fluid, and thoughtfully engineered.";
+    case "Vashika Chaurasia":
+      return "Shaping the team’s presence online through creative storytelling and sharp audience insight.";
+    case "Sambhav Sahu":
+      return "Supporting core hardware workflows with precision, consistency, and hands-on problem-solving.";
+    case "Abhishek Kumar":
+      return "Guiding the team with experience so every member grows stronger in their craft.";
+    default:
+      return "Bringing unique skills and energy to move the entire team forward.";
+  }
+};
+
 interface InfiniteMenuProps {
   items?: MenuItem[];
   className?: string;
@@ -1111,6 +1135,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
   const [hasEntered, setHasEntered] = useState<boolean>(false);
 
   const { firstName, lastName } = getNameParts(activeItem?.title);
+  const tagline = getTaglineForItem(activeItem);
 
   useEffect(() => {
     const timeout = setTimeout(() => setHasEntered(true), 40);
@@ -1195,7 +1220,6 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
-  // entry animation: only opacity + scale (no translate-y clashes)
   const entryClass = hasEntered
     ? "opacity-100 scale-100"
     : "opacity-0 scale-95";
@@ -1295,8 +1319,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
               </h1>
 
               <p className="max-w-sm text-[13px] text-slate-500 leading-relaxed">
-                Hover, drag and discover how each member shapes the story of your team. 
-                A lightweight 3D gallery tailored for your squad.
+                {tagline}
               </p>
               
               <div className="w-24 h-1 bg-gradient-to-r from-orange-400 via-amber-400 to-pink-500 rounded-full transform transition-all duration-1000">
@@ -1387,7 +1410,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-300/60 to-transparent" />
               </div>
 
-              {/* Connect & Follow card (no gradient) */}
+              {/* Connect & Follow (no gradient on container) */}
               <div className="space-y-3 pt-1">
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
@@ -1478,7 +1501,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
             `}
             aria-label={`Visit ${activeItem.title}'s profile`}
           >
-            <span>Visit full profile</span>
+            <span>Visit Official Page</span>
             <span className="relative inline-flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-orange-600 text-slate-900 font-bold shadow-md">
               ↗
             </span>

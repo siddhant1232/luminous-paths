@@ -5,7 +5,7 @@ import InfiniteMenu, { MenuItem } from "@/components/InfiniteMenu";
 
 const items: MenuItem[] = [
   {
-    image: "https://picsum.photos/300/300?grayscale",
+    image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764530630/WhatsApp_Image_2025-12-01_at_00.53.36_dcfnvm.jpg",
     link: "https://google.com/",
     title: "Siddhant Gupta",
     description: "Software Team Lead – Web Developer",
@@ -14,7 +14,7 @@ const items: MenuItem[] = [
     instagram: "https://instagram.com/mentor",
   },
   {
-    image: "https://picsum.photos/400/400?grayscale",
+    image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764529990/WhatsApp_Image_2025-11-29_at_12.12.40_tylgu1.jpg",
     link: "https://google.com/",
     title: "Rohit Sharma",
     description: "Hardware Team Lead",
@@ -23,7 +23,7 @@ const items: MenuItem[] = [
     instagram: "https://instagram.com/mentor",
   },
   {
-    image: "https://picsum.photos/500/500?grayscale",
+    image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764530008/WhatsApp_Image_2025-11-29_at_12.26.07_yv23kf.jpg",
     link: "https://google.com/",
     title: "Srijan Prasad",
     description: "Team Leader",
@@ -32,7 +32,7 @@ const items: MenuItem[] = [
     instagram: "https://instagram.com/mentor",
   },
   {
-    image: "https://picsum.photos/600/600?grayscale",
+    image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764529997/WhatsApp_Image_2025-11-29_at_12.17.57_c6yjnx.jpg",
     link: "https://google.com/",
     title: "Siddharth Mishra",
     description: "Software Team – App Developer",
@@ -50,7 +50,7 @@ const items: MenuItem[] = [
     instagram: "https://instagram.com/mentor",
   },
   {
-    image: "https://picsum.photos/600/600?grayscale",
+    image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764530002/WhatsApp_Image_2025-11-29_at_12.20.57_rsnc0w.jpg",
     link: "https://google.com/",
     title: "Sambhav Sahu",
     description: "Hardware Assistant",
