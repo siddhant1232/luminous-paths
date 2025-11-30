@@ -1061,7 +1061,6 @@ const getNameParts = (fullName?: string) => {
   };
 };
 
-// per-person tagline
 const getTaglineForItem = (item?: MenuItem) => {
   if (!item) return "";
 
@@ -1127,12 +1126,12 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
   discScale = 0.18
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
   const [activeItem, setActiveItem] = useState<MenuItem | null>(null);
   const [isMoving, setIsMoving] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [hasEntered, setHasEntered] = useState<boolean>(false);
+  const [showIntroHint, setShowIntroHint] = useState<boolean>(true);
 
   const { firstName, lastName } = getNameParts(activeItem?.title);
   const tagline = getTaglineForItem(activeItem);
@@ -1141,6 +1140,13 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
     const timeout = setTimeout(() => setHasEntered(true), 40);
     return () => clearTimeout(timeout);
   }, []);
+
+  // auto-hide intro hint after a few seconds
+  useEffect(() => {
+    if (!showIntroHint) return;
+    const timeout = setTimeout(() => setShowIntroHint(false), 4500);
+    return () => clearTimeout(timeout);
+  }, [showIntroHint]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -1157,6 +1163,9 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
 
     const handleMovementChange = (moving: boolean) => {
       setIsMoving(moving);
+      if (moving) {
+        setShowIntroHint(false);
+      }
     };
 
     const handleInit = (sk: InfiniteGridMenu) => {
@@ -1234,9 +1243,8 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
 
   return (
     <div 
-      ref={containerRef}
       className={`
-        relative h-full w-full 
+        relative w-full min-h-[640px] sm:min-h-[720px]
         bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.16)_0,_transparent_55%),radial-gradient(circle_at_bottom,_rgba(15,23,42,0.12)_0,_transparent_55%),linear-gradient(to_br,#f8fafc,#ffffff)]
         overflow-hidden 
         ${className}
@@ -1248,36 +1256,89 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
         <div className="absolute right-[-120px] bottom-[-60px] h-80 w-80 rounded-full bg-sky-200/40 blur-3xl" />
       </div>
 
+      {/* Canvas (z-0 so UI overlays sit above) */}
       <canvas
-        id="infinite-grid-menu-canvas"
-        ref={canvasRef}
-        className={`
-          relative h-full w-full cursor-grab overflow-hidden outline-none transition-all duration-500
-          ${isLoading ? "opacity-0" : "opacity-100"}
-          ${isMoving ? "active:cursor-grabbing" : ""}
-        `}
-      />
+  id="infinite-grid-menu-canvas"
+  ref={canvasRef}
+  className={`
+    relative z-0
+    h-full w-full cursor-grab overflow-hidden outline-none transition-opacity duration-500
+    translate-y-8   /* ⬅️ pushed down */
+    ${isLoading ? "opacity-0" : "opacity-100"}
+    ${isMoving ? "active:cursor-grabbing" : ""}
+  `}
+/>
 
+      {/* TOP HINT TEXT */}
+      <div
+        className={`
+          pointer-events-none
+          absolute top-4 left-1/2 -translate-x-1/2
+          z-20
+          transition-all duration-500
+          ${hasEntered ? "opacity-80" : "opacity-0"}
+          ${isMoving ? "opacity-40" : ""}
+        `}
+      >
+        <div className="inline-flex items-center gap-3 rounded-full bg-white/80 px-4 py-1.5 shadow-sm border border-slate-200/70 backdrop-blur-sm">
+          <span className="flex items-center gap-1 text-xs text-slate-700">
+            <span className="w-1 h-1 bg-slate-500 rounded-full" />
+            Drag to rotate
+          </span>
+          <span className="w-[1px] h-3 bg-slate-300" />
+          {/* <span className="flex items-center gap-1 text-xs text-slate-700">
+            {/* <span className="w-1 h-1 bg-slate-500 rounded-full" />
+            Tap discs or social links to dive deeper */}
+          {/* </span>  */}
+        </div>
+      </div>
+
+      {/* ENTRY HINT OVERLAY */}
+      {showIntroHint && !isLoading && !error && (
+        <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center">
+          <div className="relative flex flex-col items-center gap-3">
+            <div className="absolute inset-0 -z-10 flex items-center justify-center">
+              <div className="h-24 w-24 rounded-full bg-white/60 blur-2xl" />
+            </div>
+            <div className="relative h-14 w-14 rounded-full border border-orange-400/80 bg-white/90 shadow-md flex items-center justify-center">
+              <div className="h-7 w-7 rounded-full border border-slate-500/80 flex items-center justify-center">
+                <span className="text-[10px] text-slate-700 animate-pulse">
+                  ⇆
+                </span>
+              </div>
+              <div className="pointer-events-none absolute inset-0 rounded-full border border-orange-400/40 animate-ping" />
+            </div>
+            <p className="text-xs sm:text-sm font-medium text-slate-700 px-4 py-1.5 rounded-full bg-white/90 border border-slate-200 shadow-sm">
+              Drag anywhere on the sphere to explore.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Loading overlay */}
       {isLoading && !loadingFallback && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50/80 to-white">
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50/80 to-white z-20">
           <div className="flex flex-col items-center gap-4">
             <div className="relative">
               <div className="h-12 w-12 animate-spin rounded-full border-4 border-orange-400 border-t-transparent"></div>
               <div className="absolute inset-0 h-12 w-12 animate-ping rounded-full border-4 border-orange-400 border-t-transparent opacity-20"></div>
             </div>
-            <p className="text-sm font-medium text-slate-600">Initializing team galaxy...</p>
+            <p className="text-sm font-medium text-slate-600">Booting up your team sphere...</p>
           </div>
         </div>
       )}
 
+      {/* Error overlay */}
       {error && !errorFallback && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-white">
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-white z-20">
           <div className="text-center max-w-md mx-4">
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-100 flex items-center justify-center">
               <span className="text-2xl">⚠️</span>
             </div>
-            <p className="text-lg font-semibold text-red-600 mb-2">Failed to Load</p>
-            <p className="text-sm text-slate-600">{error}</p>
+            <p className="text-lg font-semibold text-red-600 mb-2">Team view failed to load</p>
+            <p className="text-sm text-slate-600">
+              Try refreshing the page, or check if WebGL is enabled in your browser.
+            </p>
           </div>
         </div>
       )}
@@ -1410,7 +1471,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-300/60 to-transparent" />
               </div>
 
-              {/* Connect & Follow (no gradient on container) */}
+              {/* Connect & Follow */}
               <div className="space-y-3 pt-1">
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
@@ -1506,26 +1567,6 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
               ↗
             </span>
           </button>
-
-          {/* Bottom hint text */}
-          <div className={`
-            absolute bottom-4 left-1/2 -translate-x-1/2 text-center
-            transition-all duration-500
-            ${hasEntered ? "opacity-70" : "opacity-0"}
-            ${isMoving ? "opacity-0" : ""}
-          `}>
-            <div className="flex items-center gap-3 text-xs text-slate-600">
-              <span className="flex items-center gap-1">
-                <span className="w-1 h-1 bg-slate-400 rounded-full"></span>
-                Drag to rotate
-              </span>
-              <span className="w-1 h-1 bg-slate-400 rounded-full"></span>
-              <span className="flex items-center gap-1">
-                <span className="w-1 h-1 bg-slate-400 rounded-full"></span>
-                Click discs or links to explore
-              </span>
-            </div>
-          </div>
         </>
       )}
     </div>

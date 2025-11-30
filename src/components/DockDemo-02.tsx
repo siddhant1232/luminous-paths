@@ -27,28 +27,38 @@ export default function DockDemo({ items, className }: DockProps) {
   return (
     <div
       className={cn(
-        // FIXED bottom + centered + above everything
         "fixed left-1/2 bottom-6 -translate-x-1/2 z-50",
-        // make wrapper not block scroll / clicks outside
+        // 👇 This makes the dock invert vs whatever is behind it
+        "mix-blend-difference",
+        // wrapper shouldn't block page interactions
         "pointer-events-none flex items-center justify-center w-full",
         className
       )}
     >
+      {/* Small hint above dock so you KNOW this file is active */}
+      <div className="mb-2 pointer-events-none">
+        <span className="rounded-full px-3 py-1 text-[10px] tracking-[0.18em] uppercase bg-white/90 text-black/80 shadow-sm">
+          Drag • Explore • Switch
+        </span>
+      </div>
+
       <motion.div
-        animate={{ y: [0, -2, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        animate={{ y: [0, -3, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         className={cn(
-          "flex items-end gap-4 px-4 py-3 rounded-3xl",
-          "border bg-background/70 backdrop-blur-2xl shadow-lg",
-          // Dock itself should be interactive
-          "pointer-events-auto"
+          "flex items-end gap-4 px-5 py-3 rounded-3xl",
+          // Dock itself is white, but because parent has mix-blend-difference,
+          // it will look dark on light bg and light on dark bg.
+          "bg-white text-black",
+          "backdrop-blur-2xl border border-white/40",
+          "shadow-[0_18px_45px_rgba(0,0,0,0.45)]",
+          // make it clickable again
+          "pointer-events-auto",
+          // slight 3D look
+          "origin-bottom [transform:perspective(700px)_rotateX(10deg)]"
         )}
-        style={{
-          // slight perspective look, you can remove if you want flat dock
-          transform: "perspective(600px) rotateX(10deg)",
-        }}
       >
-        <TooltipProvider delayDuration={100}>
+        <TooltipProvider delayDuration={80}>
           {items.map((item, i) => {
             const isActive = active === item.label
             const isHovered = hovered === i
@@ -61,18 +71,19 @@ export default function DockDemo({ items, className }: DockProps) {
                     onMouseLeave={() => setHovered(null)}
                     animate={{
                       scale: isHovered ? 1.2 : 1,
-                      rotate: isHovered ? -5 : 0,
+                      rotate: isHovered ? -6 : 0,
                     }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    transition={{ type: "spring", stiffness: 320, damping: 18 }}
                     className="relative flex flex-col items-center"
                   >
                     <Button
                       variant="ghost"
                       size="icon"
                       className={cn(
-                        "rounded-2xl relative",
-                        "transition-colors",
-                        isHovered && "shadow-lg shadow-primary/20"
+                        "rounded-2xl relative h-11 w-11",
+                        "bg-transparent text-current",
+                        "hover:bg-white/10",
+                        "transition-all duration-200"
                       )}
                       onClick={() => {
                         setActive(item.label)
@@ -81,15 +92,15 @@ export default function DockDemo({ items, className }: DockProps) {
                     >
                       <item.icon
                         className={cn(
-                          "h-6 w-6 transition-colors",
-                          isActive ? "text-primary" : "text-foreground"
+                          "h-6 w-6 transition-all duration-200",
+                          isActive ? "scale-110 opacity-100" : "opacity-85"
                         )}
                       />
 
                       {isHovered && (
                         <motion.span
-                          layoutId="glow"
-                          className="absolute inset-0 rounded-2xl border border-primary/40"
+                          layoutId="dock-glow"
+                          className="pointer-events-none absolute inset-0 rounded-2xl border border-white/50"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
@@ -99,13 +110,21 @@ export default function DockDemo({ items, className }: DockProps) {
 
                     {isActive && (
                       <motion.div
-                        layoutId="dot"
-                        className="w-1.5 h-1.5 rounded-full bg-primary mt-1"
+                        layoutId="dock-dot"
+                        className="w-1.5 h-1.5 rounded-full bg-white mt-1"
                       />
                     )}
                   </motion.div>
                 </TooltipTrigger>
-                <TooltipContent side="top" className="text-xs">
+                <TooltipContent
+                  side="top"
+                  className={cn(
+                    "text-xs px-2 py-1 rounded-full border border-white/40",
+                    "bg-white/90 text-black",
+                    // tooltip also inverts vs background because of parent blend
+                    "mix-blend-difference"
+                  )}
+                >
                   {item.label}
                 </TooltipContent>
               </Tooltip>

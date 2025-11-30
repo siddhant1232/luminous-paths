@@ -71,7 +71,7 @@ const items: MenuItem[] = [
 
 const HeroSection: React.FC = () => {
   return (
-    <section id="team" className="relative h-[600px] w-full bg-white md:h-[650px] lg:h-[700px]">
+    <section id="team" data-page-theme="light" className="relative h-[600px] w-full bg-white md:h-[650px] lg:h-[700px]">
       <InfiniteMenu items={items} />
     </section>
   );
