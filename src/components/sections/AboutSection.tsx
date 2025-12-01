@@ -97,7 +97,7 @@ function useReveal() {
 
 export default function AboutSection() {
   return (
-    <section id="about" data-page-theme="light" className="relative py-30 overflow-x-hidden text-neutral-900 bg-gradient-to-br from-neutral-50 to-blue-50/40 ">
+    <section id="about" data-page-theme="light" className="relative py-20  text-neutral-900 bg-gradient-to-br from-neutral-50 to-blue-50/40 ">
       <div className="pointer-events-none absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-neutral-50 via-transparent to-transparent" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-36">

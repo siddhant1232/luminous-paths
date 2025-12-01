@@ -598,7 +598,7 @@ class ArcballControl {
     const s = Math.max(w, h) - 1;
 
     const x = (2 * pos[0] - w - 1) / s;
-    const y = (2 * pos[1] - h - 1) / s;
+       const y = (2 * pos[1] - h - 1) / s;
     let z = 0;
     const xySq = x * x + y * y;
     const rSq = r * r;
@@ -891,7 +891,9 @@ class InfiniteGridMenu {
     if (!this.gl) return;
     this.control.update(deltaTime, this.TARGET_FRAME_DURATION);
 
-    const positions = this.instancePositions.map((p) => vec3.transformQuat(vec3.create(), p, this.control.orientation));
+    const positions = this.instancePositions.map((p) =>
+      vec3.transformQuat(vec3.create(), p, this.control.orientation)
+    );
     const scale = this.discScale;
     const SCALE_INTENSITY = 0.6;
 
@@ -1116,14 +1118,14 @@ const SocialIcon = ({ platform }: { platform: "github" | "linkedin" | "instagram
   );
 };
 
-const InfiniteMenu: FC<InfiniteMenuProps> = ({ 
-  items = [], 
+const InfiniteMenu: FC<InfiniteMenuProps> = ({
+  items = [],
   className = "",
   loadingFallback,
   errorFallback,
   onItemClick,
   onItemHover,
-  discScale = 0.18
+  discScale = 0.18,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [activeItem, setActiveItem] = useState<MenuItem | null>(null);
@@ -1141,7 +1143,6 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
     return () => clearTimeout(timeout);
   }, []);
 
-  // auto-hide intro hint after a few seconds
   useEffect(() => {
     if (!showIntroHint) return;
     const timeout = setTimeout(() => setShowIntroHint(false), 4500);
@@ -1163,9 +1164,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
 
     const handleMovementChange = (moving: boolean) => {
       setIsMoving(moving);
-      if (moving) {
-        setShowIntroHint(false);
-      }
+      if (moving) setShowIntroHint(false);
     };
 
     const handleInit = (sk: InfiniteGridMenu) => {
@@ -1229,9 +1228,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
-  const entryClass = hasEntered
-    ? "opacity-100 scale-100"
-    : "opacity-0 scale-95";
+  const entryClass = hasEntered ? "opacity-100 scale-100" : "opacity-0 scale-95";
 
   if (isLoading && loadingFallback) {
     return <div className={`h-full w-full ${className}`}>{loadingFallback}</div>;
@@ -1242,9 +1239,10 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
   }
 
   return (
-    <div 
+    <div
       className={`
-        relative w-full min-h-[640px] sm:min-h-[720px]
+        relative w-full max-w-[100vw]
+        min-h-[520px] sm:min-h-[640px] md:min-h-[720px]
         bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.16)_0,_transparent_55%),radial-gradient(circle_at_bottom,_rgba(15,23,42,0.12)_0,_transparent_55%),linear-gradient(to_br,#f8fafc,#ffffff)]
         overflow-hidden 
         ${className}
@@ -1256,18 +1254,19 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
         <div className="absolute right-[-120px] bottom-[-60px] h-80 w-80 rounded-full bg-sky-200/40 blur-3xl" />
       </div>
 
-      {/* Canvas (z-0 so UI overlays sit above) */}
+      {/* Canvas */}
       <canvas
-  id="infinite-grid-menu-canvas"
-  ref={canvasRef}
-  className={`
-    relative z-0
-    h-full w-full cursor-grab overflow-hidden outline-none transition-opacity duration-500
-    translate-y-8   /* ⬅️ pushed down */
-    ${isLoading ? "opacity-0" : "opacity-100"}
-    ${isMoving ? "active:cursor-grabbing" : ""}
-  `}
-/>
+        id="infinite-grid-menu-canvas"
+        ref={canvasRef}
+        className={`
+          relative z-0
+          h-full w-full cursor-grab overflow-hidden outline-none
+          transition-opacity duration-500
+          translate-y-8
+          ${isLoading ? "opacity-0" : "opacity-100"}
+          ${isMoving ? "active:cursor-grabbing" : ""}
+        `}
+      />
 
       {/* TOP HINT TEXT */}
       <div
@@ -1286,10 +1285,10 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
             Drag to rotate
           </span>
           <span className="w-[1px] h-3 bg-slate-300" />
-          {/* <span className="flex items-center gap-1 text-xs text-slate-700">
-            {/* <span className="w-1 h-1 bg-slate-500 rounded-full" />
-            Tap discs or social links to dive deeper */}
-          {/* </span>  */}
+          <span className="hidden sm:flex items-center gap-1 text-xs text-slate-700">
+            <span className="w-1 h-1 bg-slate-500 rounded-full" />
+            Tap discs to explore each member
+          </span>
         </div>
       </div>
 
@@ -1302,14 +1301,12 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
             </div>
             <div className="relative h-14 w-14 rounded-full border border-orange-400/80 bg-white/90 shadow-md flex items-center justify-center">
               <div className="h-7 w-7 rounded-full border border-slate-500/80 flex items-center justify-center">
-                <span className="text-[10px] text-slate-700 animate-pulse">
-                  ⇆
-                </span>
+                <span className="text-[10px] text-slate-700 animate-pulse">⇆</span>
               </div>
               <div className="pointer-events-none absolute inset-0 rounded-full border border-orange-400/40 animate-ping" />
             </div>
-            <p className="text-xs sm:text-sm font-medium text-slate-700 px-4 py-1.5 rounded-full bg-white/90 border border-slate-200 shadow-sm">
-              Drag anywhere on the sphere to explore.
+            <p className="text-xs sm:text-sm font-medium text-slate-700 px-4 py-1.5 rounded-full bg-white/90 border border-slate-200 shadow-sm text-center">
+              Drag anywhere on the sphere to explore your core team.
             </p>
           </div>
         </div>
@@ -1345,21 +1342,25 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
 
       {activeItem && !isLoading && !error && (
         <>
+          {/* DESKTOP / TABLET OVERLAYS (md and up) */}
           {/* LEFT: name / title */}
-          <div className={`
-            pointer-events-none
-            absolute
-            left-[6%]
-            top-1/2
-            -translate-y-1/2
-            select-none
-            transform-gpu
-            transition-all
-            duration-700
-            ease-out
-            ${entryClass}
-            ${isMoving ? "scale-95 translate-x-2 opacity-80" : ""}
-          `}>
+          <div
+            className={`
+              pointer-events-none
+              hidden md:block
+              absolute
+              left-[6%]
+              top-1/2
+              -translate-y-1/2
+              select-none 
+              transform-gpu
+              transition-all
+              duration-700
+              ease-out
+              ${entryClass}
+              ${isMoving ? "scale-95 translate-x-2 opacity-80" : ""}
+            `}
+          >
             <div className="space-y-5">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-2 h-8 bg-gradient-to-b from-orange-400 to-orange-600 rounded-full"></div>
@@ -1367,26 +1368,24 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
                   CORE TEAM
                 </span>
               </div>
-              
-              <h1 className="text-[3.6rem] leading-[0.9] font-black text-slate-900 tracking-tight">
-                <span className="block">
-                  {firstName}
-                </span>
+
+              <h1 className="text-3xl sm:text-[3.6rem] leading-[0.9] font-black text-slate-900 tracking-tight">
+                <span className="block">{firstName}</span>
                 {lastName && (
-                  <span className="block text-[3rem] text-slate-500 mt-2">
+                  <span className="block text-2xl sm:text-[3rem] text-slate-500 mt-2">
                     {lastName}
                   </span>
                 )}
               </h1>
 
-              <p className="max-w-sm text-[13px] text-slate-500 leading-relaxed">
-                {tagline}
-              </p>
-              
+              <p className="max-w-sm text-[13px] text-slate-500 leading-relaxed">{tagline}</p>
+
               <div className="w-24 h-1 bg-gradient-to-r from-orange-400 via-amber-400 to-pink-500 rounded-full transform transition-all duration-1000">
-                <div className={`h-full bg-white/70 rounded-full transition-all duration-1000 ${
-                  isMoving ? "w-1/3" : "w-full"
-                }`} />
+                <div
+                  className={`h-full bg-white/70 rounded-full transition-all duration-1000 ${
+                    isMoving ? "w-1/3" : "w-full"
+                  }`}
+                />
               </div>
             </div>
           </div>
@@ -1394,12 +1393,13 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
           {/* RIGHT: profile card */}
           <div
             className={`
+              hidden md:flex
               absolute
               top-1/2
               right-[6%]
               -translate-y-1/2
               z-20
-              w-[360px]
+              w-full max-w-xs sm:max-w-sm md:w-[360px]
               rounded-3xl
               border
               border-white/40
@@ -1407,7 +1407,6 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
               backdrop-blur-2xl
               p-6
               shadow-[0_24px_80px_rgba(15,23,42,0.18)]
-              flex
               flex-col
               transform-gpu
               transition-all
@@ -1477,9 +1476,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
                   <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
                     CONNECT & FOLLOW
                   </span>
-                  <span className="text-[11px] text-slate-400">
-                    One-tap links
-                  </span>
+                  <span className="text-[11px] text-slate-400">One-tap links</span>
                 </div>
 
                 <div className="rounded-2xl border border-slate-200 bg-white/95 px-4 py-3 shadow-sm flex items-center justify-between">
@@ -1531,16 +1528,16 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
             </div>
           </div>
 
-          {/* Center CTA button */}
+          {/* DESKTOP CENTER CTA BUTTON */}
           <button
             onClick={handleItemClick}
             className={`
+              hidden md:inline-flex
               absolute
               left-1/2
               bottom-10
               -translate-x-1/2
               z-30
-              inline-flex
               items-center
               gap-3
               rounded-full
@@ -1567,6 +1564,88 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
               ↗
             </span>
           </button>
+
+          {/* MOBILE OVERLAY CARD (md:hidden) */}
+          <div
+            className={`
+              md:hidden
+              pointer-events-none
+              absolute
+              inset-x-4
+              bottom-5
+              z-30
+              transform-gpu
+              transition-all
+              duration-400
+              ${entryClass}
+              ${isMoving ? "translate-y-4 opacity-80" : ""}
+            `}
+          >
+            <div className="pointer-events-auto rounded-3xl border border-white/60 bg-white/95 backdrop-blur-2xl p-4 shadow-[0_18px_50px_rgba(15,23,42,0.25)]">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="relative h-10 w-10 rounded-2xl border border-white/70 bg-slate-100/80 overflow-hidden shadow-sm shadow-slate-400/30">
+                  <img
+                    src={activeItem.image}
+                    alt={activeItem.title}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-orange-500 mb-0.5">
+                    NOW EXPLORING
+                  </p>
+                  <p className="text-sm font-semibold text-slate-900 leading-tight">
+                    {activeItem.title}
+                  </p>
+                </div>
+              </div>
+
+              <p className="text-[11px] text-slate-600 mb-3 line-clamp-3">{tagline}</p>
+
+              <div className="flex items-center justify-between gap-3">
+                <button
+                  onClick={handleItemClick}
+                  className="inline-flex flex-1 items-center justify-center rounded-full bg-slate-900 text-slate-50 text-xs font-semibold py-2 shadow-md active:scale-[0.97] transition-transform"
+                >
+                  Visit profile
+                  <span className="ml-2 text-[11px]">↗</span>
+                </button>
+
+                <div className="flex items-center gap-2">
+                  {activeItem.github && (
+                    <button
+                      type="button"
+                      onClick={(e) => handleSocialClick(e, activeItem.github!)}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-slate-900 text-white shadow-sm"
+                      aria-label="Open GitHub"
+                    >
+                      <SocialIcon platform="github" />
+                    </button>
+                  )}
+                  {activeItem.linkedin && (
+                    <button
+                      type="button"
+                      onClick={(e) => handleSocialClick(e, activeItem.linkedin!)}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-[#0A66C2] text-white shadow-sm"
+                      aria-label="Open LinkedIn"
+                    >
+                      <SocialIcon platform="linkedin" />
+                    </button>
+                  )}
+                  {activeItem.instagram && (
+                    <button
+                      type="button"
+                      onClick={(e) => handleSocialClick(e, activeItem.instagram!)}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-slate-900 text-white shadow-sm"
+                      aria-label="Open Instagram"
+                    >
+                      <SocialIcon platform="instagram" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
         </>
       )}
     </div>
