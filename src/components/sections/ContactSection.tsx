@@ -7,17 +7,28 @@ import {
   MapPin,
   Mail,
   Phone,
-  Github,
-  Linkedin,
   ArrowUpRight,
   Maximize2,
+  Twitter,
+  Instagram,       // ⬅️ use Instagram instead of Linkedin
 } from "lucide-react";
 
 const navLinks = [
   { label: "About", href: "#about" },
-  { label: "Modes", href: "#modes" },
-  { label: "Impact", href: "#impact" },
+  { label: "Gallery", href: "#gallary" },
+  { label: "Documentation", href: "#documentaion" },
 ];
+const maskPhone = (phone: string) => {
+  // keep everything except last 4 digits
+  const masked = phone.slice(0, -4) + "XXXX";
+  return masked;
+};
+
+const openWhatsApp = (phone: string) => {
+  const cleaned = phone.replace(/[^0-9]/g, ""); // remove + and spaces
+  window.open(`https://wa.me/${cleaned}`, "_blank");
+};
+
 
 export default function Footer() {
   return (
@@ -59,7 +70,7 @@ export default function Footer() {
             </div>
 
             <a
-              href="mailto:ops@mmtt.systems"
+              href="mailto:teamplaymetrics@gmail.com"
               className="group inline-flex items-center justify-center rounded-full bg-orange-500 text-neutral-950 px-6 py-2.5 text-sm font-semibold shadow-[0_0_40px_rgba(249,115,22,0.6)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_0_60px_rgba(249,115,22,0.8)]"
             >
               Talk to us
@@ -78,7 +89,7 @@ export default function Footer() {
                 <div className="absolute -left-0.5 -bottom-0.5 h-4 w-4 border-l border-b border-orange-400" />
                 <div className="absolute -right-0.5 -bottom-0.5 h-4 w-4 border-r border-b border-orange-400" />
               </div>
-
+            
               <div className="flex items-center justify-between text-[0.6rem] font-mono uppercase tracking-[0.25em] text-orange-300/90 mb-4">
                 <span>[COMMS_DATA]</span>
                 <Maximize2 className="h-3.5 w-3.5 text-orange-300/80" />
@@ -104,20 +115,21 @@ export default function Footer() {
                 <p className="flex flex-wrap items-center gap-1">
                   <span className="text-orange-400/90 mr-1">[MAIL]</span>
                   <a
-                    href="mailto:ops@mmtt.systems"
+                    href="mailto:teamplaymetrics@gmail.com"
                     className="hover:text-orange-300 transition-colors"
                   >
-                    ops@mmtt.systems
+                    teamplaymetrics@gmail.com
                   </a>
                 </p>
                 <p className="flex flex-wrap items-center gap-1">
                   <span className="text-orange-400/90 mr-1">[FREQ]</span>
-                  <a
-                    href="tel:+910000000000"
-                    className="hover:text-orange-300 transition-colors"
+
+                  <button
+                    onClick={() => openWhatsApp("+916263211405")}   // full real number here
+                    className="hover:text-orange-300 transition-colors underline decoration-dotted"
                   >
-                    +91-00000-00000
-                  </a>
+                    {maskPhone("+91-6263211405")} 
+                  </button>
                 </p>
               </div>
             </div>
@@ -145,7 +157,7 @@ export default function Footer() {
                     >
                       <div className="flex items-center gap-2">
                         <span className="text-orange-400 font-mono text-xs">
-                          {link.label === "About" ? ">" : "·"}
+                          {link.label === "About" ? ">" : ">"}
                         </span>
                         <span>{link.label}</span>
                       </div>
@@ -171,23 +183,25 @@ export default function Footer() {
               </div>
 
               <div className="mb-4 flex gap-3">
+                {/* Twitter */}
                 <a
-                  href="https://github.com/"
+                  href="https://x.com/Siddhar16032376"
                   target="_blank"
                   rel="noreferrer"
-                  aria-label="GitHub"
+                  aria-label="Twitter"
                   className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-500/10 text-orange-300 shadow-[0_0_20px_rgba(249,115,22,0.6)] border border-orange-400/70 hover:bg-orange-500/20 transition-all"
                 >
-                  <Github size={18} />
+                  <Twitter size={18} />
                 </a>
+                {/* Instagram */}
                 <a
-                  href="https://www.linkedin.com/"
+                  href="https://www.instagram.com/team__playmetrics__sih?igsh=YmUxMnp1ODBqcWQ="
                   target="_blank"
                   rel="noreferrer"
-                  aria-label="LinkedIn"
+                  aria-label="Instagram"
                   className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-500/10 text-orange-300 shadow-[0_0_20px_rgba(249,115,22,0.6)] border border-orange-400/70 hover:bg-orange-500/20 transition-all"
                 >
-                  <Linkedin size={18} />
+                  <Instagram size={18} />
                 </a>
               </div>
 

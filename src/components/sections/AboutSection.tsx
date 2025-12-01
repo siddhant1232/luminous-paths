@@ -44,7 +44,7 @@ const FEATURES: Feature[] = [
   },
 ];
 
-const MODES = [
+const MODES: { step: string; title: string; description?: string }[] = [
   { step: "Step 1", title: "Radio mode" },
   { step: "Step 2", title: "GSM mode" },
   { step: "Step 3", title: "Satellite fallback" },
@@ -68,7 +68,11 @@ const ICON_FEATURES = [
 ];
 
 /* IMAGES FOR STEP CARDS */
-const STEP_IMAGES: string[] = ['https://res.cloudinary.com/dxtewwe9a/image/upload/v1764579766/WhatsApp_Image_2025-12-01_at_13.49.42_qokuww.jpg', 'https://res.cloudinary.com/dxtewwe9a/image/upload/v1764580012/WhatsApp_Image_2025-12-01_at_13.51.46_mx53ux.jpg', 'https://res.cloudinary.com/dxtewwe9a/image/upload/v1764580048/WhatsApp_Image_2025-12-01_at_13.55.29_yirdl1.jpg'];
+const STEP_IMAGES: string[] = [
+  "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764579766/WhatsApp_Image_2025-12-01_at_13.49.42_qokuww.jpg",
+  "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764580012/WhatsApp_Image_2025-12-01_at_13.51.46_mx53ux.jpg",
+  "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764580048/WhatsApp_Image_2025-12-01_at_13.55.29_yirdl1.jpg",
+];
 
 /* ------------------ HOOK ------------------ */
 
@@ -105,12 +109,10 @@ export default function AboutSection() {
       <div className="absolute inset-0 opacity-[0.04] bg-[url('/grid.svg')] bg-cover" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-36 relative z-10">
-        {/* ===================== FEATURE ROWS ===================== */}
         {FEATURES.map((feature, i) => (
           <FeatureRow key={i} feature={feature} reverse={i % 2 === 1} />
         ))}
 
-        {/* ===================== EXTRA SECTIONS ===================== */}
         <div className="space-y-28">
           <StepCards />
           <FeaturesGrid />
@@ -141,9 +143,7 @@ function FeatureRow({
         ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
       `}
     >
-      {/* TEXT */}
       <div className={`${reverse ? "md:order-2" : ""} space-y-6`}>
-        {/* ORANGE LINE */}
         <div className="flex items-center gap-2">
           <div className="w-2 h-8 bg-orange-500 rounded-full" />
           <span className="text-xs font-semibold tracking-[0.2em] text-neutral-700">
@@ -158,7 +158,6 @@ function FeatureRow({
         </p>
       </div>
 
-      {/* IMAGE */}
       <div
         className={`${
           reverse ? "md:order-1 justify-start" : "justify-end"
@@ -188,7 +187,7 @@ function FeatureRow({
   );
 }
 
-/* ===================== STEP CARDS ===================== */
+/* ===================== STEP CARDS — SHORTER VERSION ===================== */
 
 function StepCards() {
   const [ref, visible] = useReveal();
@@ -197,61 +196,89 @@ function StepCards() {
     <div
       ref={ref}
       className={`
-        grid gap-12 md:grid-cols-3
-        transition-all duration-[1000ms]
-        ${visible ? "opacity-100" : "opacity-0 translate-y-12"}
+        grid gap-8 md:gap-10 md:grid-cols-3
+        transition-all duration-[900ms]
+        ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
       `}
     >
       {MODES.map((mode, index) => (
         <div
           key={mode.step}
-          className="
-            relative flex flex-col items-center 
+          style={{ transitionDelay: visible ? `${index * 120}ms` : "0ms" }}
+          className={`
+            group relative flex flex-col items-center 
             rounded-[28px] bg-black text-white
-            px-10 py-16 
-            shadow-[0_22px_45px_rgba(0,0,0,0.45)]
+            px-6 py-10 sm:px-8 sm:py-12
+            shadow-[0_18px_36px_rgba(0,0,0,0.55)]
             border border-neutral-800
-            overflow-hidden
-            transition-all duration-300 hover:-translate-y-2
-          "
+            overflow-hidden transform-gpu
+            transition-all duration-500
+            ${visible ? "translate-y-0" : "translate-y-8"}
+            hover:-translate-y-2 hover:border-orange-500/70
+          `}
         >
-          {/* ORANGE HIGHLIGHT */}
-          <div
-            className="
-            absolute inset-x-0 top-0 h-1 
-            bg-gradient-to-r from-orange-500 via-orange-400 to-orange-600
-          "
-          />
+          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-orange-500 via-orange-400 to-orange-600" />
 
-          <IconShape index={index} />
+          {/* IMAGE -- BIG + CLEAN */}
+          <div className="relative mt-6 mb-6 flex w-full justify-center">
+            <div
+              className={`
+                relative 
+                w-44 h-24 sm:w-56 sm:h-32 lg:w-64 lg:h-36
+                rounded-[1.6rem]
+                bg-black/90 overflow-hidden
+                border border-orange-500/70
+                shadow-[0_0_35px_rgba(249,115,22,0.45)]
+                transform-gpu
+                transition-all duration-500
+                group-hover:shadow-[0_0_55px_rgba(249,115,22,0.8)]
+                group-hover:-translate-y-1
+              `}
+            >
+              <div className="pointer-events-none absolute inset-[5px] rounded-[1.2rem] border border-orange-400/70" />
 
-          <p className="mt-12 text-xs text-neutral-400">{mode.step}</p>
-          <p className="mt-2 text-lg font-semibold">{mode.title}</p>
+              <IconShape index={index} />
+            </div>
+          </div>
+
+          <p className="text-[0.7rem] tracking-[0.25em] text-neutral-400 uppercase">
+            {mode.step}
+          </p>
+
+          <p className="mt-2 text-lg sm:text-xl font-semibold text-neutral-50 text-center">
+            {mode.title}
+          </p>
+
+          {mode.description && (
+            <p className="mt-2 text-sm text-neutral-400/90 text-center leading-relaxed max-w-xs">
+              {mode.description}
+            </p>
+          )}
+
+          <div className="mt-5 h-[2px] w-14 bg-gradient-to-r from-transparent via-orange-400/80 to-transparent opacity-80 group-hover:w-24 transition-all duration-500" />
         </div>
       ))}
     </div>
   );
 }
 
-/* SHAPES INSIDE THE CARDS -> NOW IMAGES */
+/* ===================== IMAGE INSIDE CARD ===================== */
+
 function IconShape({ index }: { index: number }) {
   const src = STEP_IMAGES[index];
 
   return (
-    <div className="flex h-50 w-50 items-center justify-center rounded-2xl bg-neutral-900 overflow-hidden">
-      {src ? (
-        <img
-          src={src}
-          alt={`Step ${index + 1}`}
-          className="h-full w-full object-cover"
-        />
-      ) : (
-        <div className="h-10 w-10 rounded-md bg-white/10" />
-      )}
-    </div>
+    <img
+      src={src}
+      alt={`Step ${index + 1}`}
+      className="
+        h-full w-full object-cover
+        transition-transform duration-500
+        group-hover:scale-[1.03]
+      "
+    />
   );
 }
-
 
 /* ===================== ICON GRID ===================== */
 
@@ -264,9 +291,7 @@ function FeaturesGrid() {
       className={`
         grid grid-cols-4 gap-y-20 place-items-center
         transition-all duration-[1000ms]
-        ${
-          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }
+        ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
       `}
     >
       {ICON_FEATURES.map(({ icon: Icon, label }) => (
@@ -321,7 +346,6 @@ function Zones() {
             transition-all duration-300
           "
         >
-          {/* ORANGE CIRCLE GLOW */}
           <div
             className="
             absolute -z-10 inset-0 
@@ -330,23 +354,18 @@ function Zones() {
           "
           />
 
-          {/* TOP LABEL */}
           <p className="text-xs font-semibold tracking-[0.25em] text-neutral-500 mb-3">
             ZONE {index + 1}
           </p>
 
-          {/* MAIN LABEL */}
           <p className="text-3xl font-bold text-orange-600 drop-shadow-sm">
             {zone.label}
           </p>
 
-          {/* SUB TEXT */}
           <p className="text-lg text-neutral-800 mt-1">{zone.sub}</p>
 
-          {/* DIVIDER */}
           <div className="mt-6 h-[2px] w-16 bg-gradient-to-r from-orange-500 to-black/20 rounded-full" />
 
-          {/* TEXT */}
           <p className="mt-4 text-sm text-neutral-600 leading-relaxed max-w-[260px]">
             Strategically optimized for deployment, command, and full-force
             coordination.
