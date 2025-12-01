@@ -11,83 +11,40 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <section id="hero" data-page-theme="light" className="min-h-screen bg-gradient-to-br overflow-x-hidden from-neutral-50 to-blue-50/40 text-neutral-900">
+    <section id="hero"  className="min-h-screen bg-gradient-to-br from-neutral-50 to-blue-50/40 text-neutral-900">
       {/* Simple Background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute -left-20 top-20 h-80 w-80 rounded-full bg-orange-200/20 blur-3xl" />
         <div className="absolute -right-20 bottom-20 h-80 w-80 rounded-full bg-blue-200/20 blur-3xl" />
       </div>
 
-      <header className="px-4 py-4 sm:px-6 sm:py-5 lg:px-8">
-  <div className="mx-auto max-w-6xl">
-    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      {/* Left: Logo + Title */}
-      <div className="flex items-center gap-3 sm:gap-4">
-        {/* RESPONSIVE ICON SIZE */}
-        <div className="
-          flex items-center justify-center flex-shrink-0
-          h-12 w-12          /* mobile */
-          sm:h-16 sm:w-16    /* sm+ */
-          md:h-20 md:w-20    /* md+ */
-        ">
-          <img
-            src="https://res.cloudinary.com/dxtewwe9a/image/upload/v1764396504/teamicon_feiai7.png"
-            alt="Play Metrics Logo"
-            className="h-full w-full object-contain rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-          />
-        </div>
-
-        <div className="min-w-0">
-          {/* RESPONSIVE TITLE SIZE */}
-          <h1 className="
-            font-bold text-neutral-900 tracking-tight truncate
-            text-lg            /* mobile */
-            sm:text-2xl
-            md:text-3xl
-          ">
-            Play Metrics
-          </h1>
-
-          {/* RESPONSIVE SUBTITLE */}
-          <p className="text-[11px] sm:text-sm text-neutral-500 mt-0.5 sm:mt-1">
-            Innovation Team
-          </p>
-        </div>
-      </div>
-
-      {/* Right: SIH Badge */}
-      <div className="flex sm:justify-end">
-        <div className="
-          inline-flex items-center gap-2 sm:gap-3
-          px-2.5 py-1.5      /* smaller on mobile */
-          sm:px-4 sm:py-2.5
-          bg-gradient-to-r from-green-50 to-emerald-50
-          rounded-full shadow-sm flex-shrink-0
-        ">
-          <div className="flex items-center gap-1 sm:gap-2">
-
-            {/* SMALLER PULSE ON MOBILE */}
-            <div className="
-              bg-green-500 rounded-full animate-pulse
-              w-1.5 h-1.5      /* mobile */
-              sm:w-2 sm:h-2    /* larger on sm+ */
-            " />
-
-            {/* RESPONSIVE TEXT */}
-            <span className="
-              font-semibold text-green-700 whitespace-nowrap
-              text-xs       /* mobile */
-              sm:text-sm
-            ">
-              SIH 2025
-            </span>
+      <header className="px-6 py-8 sm:px-8">
+        <div className="mx-auto max-w-6xl">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="flex h-20 w-20 items-center justify-center">
+                <img 
+                  src="https://res.cloudinary.com/dxtewwe9a/image/upload/v1764396504/teamicon_feiai7.png" 
+                  alt="Play Metrics Logo"
+                  className="h-18 w-18 object-contain rounded-xl shadow-transparent transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-neutral-900 tracking-tight">Play Metrics</h1>
+                <p className="text-sm text-neutral-500 mt-1">Innovation Team</p>
+              </div>
+            </div>
+      
+            {/* SIH Badge without border */}
+            <div className="flex items-center gap-3 px-4 py-2.5 bg-gradient-to-r from-green-50 to-emerald-50 rounded-full shadow-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-sm font-semibold text-green-700">SIH 2025</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</header>
-
+      </header>
 
       {/* Main Content */}
       <main className="px-6 py-12 sm:px-8">
