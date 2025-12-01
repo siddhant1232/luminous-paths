@@ -67,10 +67,13 @@ const ICON_FEATURES = [
   { icon: Bell, label: "Alerts" },
 ];
 
+/* IMAGES FOR STEP CARDS */
+const STEP_IMAGES: string[] = [radioImg, autoSwitchImg, battlefieldImg];
+
 /* ------------------ HOOK ------------------ */
 
 function useReveal() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -102,7 +105,6 @@ export default function AboutSection() {
       <div className="absolute inset-0 opacity-[0.04] bg-[url('/grid.svg')] bg-cover" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-36 relative z-10">
-
         {/* ===================== FEATURE ROWS ===================== */}
         {FEATURES.map((feature, i) => (
           <FeatureRow key={i} feature={feature} reverse={i % 2 === 1} />
@@ -121,7 +123,13 @@ export default function AboutSection() {
 
 /* ===================== FEATURE ROW ===================== */
 
-function FeatureRow({ feature, reverse }: { feature: Feature; reverse: boolean }) {
+function FeatureRow({
+  feature,
+  reverse,
+}: {
+  feature: Feature;
+  reverse: boolean;
+}) {
   const [ref, visible] = useReveal();
 
   return (
@@ -151,13 +159,19 @@ function FeatureRow({ feature, reverse }: { feature: Feature; reverse: boolean }
       </div>
 
       {/* IMAGE */}
-      <div className={`${reverse ? "md:order-1 justify-start" : "justify-end"} flex`}>
+      <div
+        className={`${
+          reverse ? "md:order-1 justify-start" : "justify-end"
+        } flex`}
+      >
         <div className="relative group">
-          <div className="
+          <div
+            className="
             absolute inset-0 rounded-[32px] 
             bg-orange-400/20 blur-2xl opacity-40 
             group-hover:opacity-60 transition-all
-          " />
+          "
+          />
           <img
             src={feature.image}
             alt={feature.title}
@@ -202,10 +216,12 @@ function StepCards() {
           "
         >
           {/* ORANGE HIGHLIGHT */}
-          <div className="
+          <div
+            className="
             absolute inset-x-0 top-0 h-1 
             bg-gradient-to-r from-orange-500 via-orange-400 to-orange-600
-          " />
+          "
+          />
 
           <IconShape index={index} />
 
@@ -217,25 +233,25 @@ function StepCards() {
   );
 }
 
-/* SHAPES INSIDE THE CARDS */
+/* SHAPES INSIDE THE CARDS -> NOW IMAGES */
 function IconShape({ index }: { index: number }) {
+  const src = STEP_IMAGES[index];
+
   return (
-    <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-neutral-900">
-      {index === 0 && <div className="h-10 w-10 rounded-md bg-white/10" />}
-      {index === 1 && <div className="h-12 w-12 rounded-full bg-white/10" />}
-      {index === 2 && (
-        <div
-          className="h-0 w-0"
-          style={{
-            borderLeft: "18px solid transparent",
-            borderRight: "18px solid transparent",
-            borderBottom: "32px solid rgba(255,255,255,0.15)",
-          }}
+    <div className="flex h-50 w-50 items-center justify-center rounded-2xl bg-neutral-900 overflow-hidden">
+      {src ? (
+        <img
+          src={src}
+          alt={`Step ${index + 1}`}
+          className="h-full w-full object-cover"
         />
+      ) : (
+        <div className="h-10 w-10 rounded-md bg-white/10" />
       )}
     </div>
   );
 }
+
 
 /* ===================== ICON GRID ===================== */
 
@@ -255,16 +271,20 @@ function FeaturesGrid() {
     >
       {ICON_FEATURES.map(({ icon: Icon, label }) => (
         <div key={label} className="flex flex-col items-center">
-          <div className="
+          <div
+            className="
             h-14 w-14 flex items-center justify-center
             rounded-full border-2 border-black
             bg-white shadow-[0_8px_18px_rgba(0,0,0,0.15)]
             hover:-translate-y-1 hover:shadow-xl 
             transition-all
-          ">
+          "
+          >
             <Icon className="h-6 w-6 text-black" />
           </div>
-          <span className="text-sm font-semibold text-black mt-3">{label}</span>
+          <span className="text-sm font-semibold text-black mt-3">
+            {label}
+          </span>
         </div>
       ))}
     </div>
@@ -272,7 +292,6 @@ function FeaturesGrid() {
 }
 
 /* ===================== IMPACT ZONES ===================== */
-/* ===================== IMPACT ZONES — ENHANCED CLEAN WHITE DESIGN ===================== */
 
 function Zones() {
   const [ref, visible] = useReveal();
@@ -287,7 +306,6 @@ function Zones() {
         ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
       `}
     >
-
       {IMPACT_ZONES.map((zone, index) => (
         <div
           key={zone.label}
@@ -304,11 +322,13 @@ function Zones() {
           "
         >
           {/* ORANGE CIRCLE GLOW */}
-          <div className="
+          <div
+            className="
             absolute -z-10 inset-0 
             bg-gradient-to-b from-orange-500/10 to-transparent 
             opacity-40 rounded-[28px]
-          " />
+          "
+          />
 
           {/* TOP LABEL */}
           <p className="text-xs font-semibold tracking-[0.25em] text-neutral-500 mb-3">
@@ -321,16 +341,15 @@ function Zones() {
           </p>
 
           {/* SUB TEXT */}
-          <p className="text-lg text-neutral-800 mt-1">
-            {zone.sub}
-          </p>
+          <p className="text-lg text-neutral-800 mt-1">{zone.sub}</p>
 
           {/* DIVIDER */}
           <div className="mt-6 h-[2px] w-16 bg-gradient-to-r from-orange-500 to-black/20 rounded-full" />
 
           {/* TEXT */}
           <p className="mt-4 text-sm text-neutral-600 leading-relaxed max-w-[260px]">
-            Strategically optimized for deployment, command, and full-force coordination.
+            Strategically optimized for deployment, command, and full-force
+            coordination.
           </p>
         </div>
       ))}

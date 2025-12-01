@@ -598,7 +598,7 @@ class ArcballControl {
     const s = Math.max(w, h) - 1;
 
     const x = (2 * pos[0] - w - 1) / s;
-       const y = (2 * pos[1] - h - 1) / s;
+    const y = (2 * pos[1] - h - 1) / s;
     let z = 0;
     const xySq = x * x + y * y;
     const rSq = r * r;
@@ -1242,7 +1242,8 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
     <div
       className={`
         relative w-full max-w-[100vw]
-        min-h-[520px] sm:min-h-[640px] md:min-h-[720px]
+        min-h-[520px] sm:min-h-[640px] md:min-h-[780px] lg:min-h-[720px]
+        pb-16 sm:pb-20 md:pb-24  /* extra bottom space so card doesn’t touch next section */
         bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.16)_0,_transparent_55%),radial-gradient(circle_at_bottom,_rgba(15,23,42,0.12)_0,_transparent_55%),linear-gradient(to_br,#f8fafc,#ffffff)]
         overflow-hidden 
         ${className}
@@ -1342,12 +1343,12 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
 
       {activeItem && !isLoading && !error && (
         <>
-          {/* DESKTOP / TABLET OVERLAYS (md and up) */}
+          {/* DESKTOP OVERLAYS (lg and up) */}
           {/* LEFT: name / title */}
           <div
             className={`
               pointer-events-none
-              hidden md:block
+              hidden lg:block
               absolute
               left-[6%]
               top-1/2
@@ -1390,10 +1391,10 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
             </div>
           </div>
 
-          {/* RIGHT: profile card */}
+          {/* RIGHT: profile card (desktop) */}
           <div
             className={`
-              hidden md:flex
+              hidden lg:flex
               absolute
               top-1/2
               right-[6%]
@@ -1532,7 +1533,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
           <button
             onClick={handleItemClick}
             className={`
-              hidden md:inline-flex
+              hidden lg:inline-flex
               absolute
               left-1/2
               bottom-10
@@ -1565,14 +1566,14 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
             </span>
           </button>
 
-          {/* MOBILE OVERLAY CARD (md:hidden) */}
+          {/* MOBILE / TABLET OVERLAY CARD (lg:hidden) */}
           <div
             className={`
-              md:hidden
+              lg:hidden
               pointer-events-none
               absolute
               inset-x-4
-              bottom-5
+              bottom-10 sm:bottom-12 md:bottom-16  /* pulled a bit up on tablets */
               z-30
               transform-gpu
               transition-all
@@ -1581,7 +1582,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
               ${isMoving ? "translate-y-4 opacity-80" : ""}
             `}
           >
-            <div className="pointer-events-auto rounded-3xl border border-white/60 bg-white/95 backdrop-blur-2xl p-4 shadow-[0_18px_50px_rgba(15,23,42,0.25)]">
+            <div className="pointer-events-auto rounded-3xl border border-white/60 bg-white/95 backdrop-blur-2xl p-4 shadow-[0_18px_50px_rgba(15,23,42,0.25)] max-w-md mx-auto">
               <div className="flex items-center gap-3 mb-3">
                 <div className="relative h-10 w-10 rounded-2xl border border-white/70 bg-slate-100/80 overflow-hidden shadow-sm shadow-slate-400/30">
                   <img
@@ -1602,14 +1603,16 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
 
               <p className="text-[11px] text-slate-600 mb-3 line-clamp-3">{tagline}</p>
 
+              {/* Enhanced bottom area: only social + label, no main button */}
               <div className="flex items-center justify-between gap-3">
-                <button
-                  onClick={handleItemClick}
-                  className="inline-flex flex-1 items-center justify-center rounded-full bg-slate-900 text-slate-50 text-xs font-semibold py-2 shadow-md active:scale-[0.97] transition-transform"
-                >
-                  Visit profile
-                  <span className="ml-2 text-[11px]">↗</span>
-                </button>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">
+                    CONNECT
+                  </span>
+                  <span className="text-[11px] text-slate-600">
+                    One-tap links to their work
+                  </span>
+                </div>
 
                 <div className="flex items-center gap-2">
                   {activeItem.github && (
