@@ -11,7 +11,7 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <section id="hero" data-page-theme="light" className="min-h-screen bg-gradient-to-br from-neutral-50 to-blue-50/40 text-neutral-900">
+    <section id="hero" data-page-theme="light" className="min-h-screen bg-gradient-to-br overflow-x-hidden from-neutral-50 to-blue-50/40 text-neutral-900">
       {/* Simple Background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute -left-20 top-20 h-80 w-80 rounded-full bg-orange-200/20 blur-3xl" />

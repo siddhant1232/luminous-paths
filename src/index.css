@@ -107,3 +107,11 @@ All colors MUST be HSL.
 .text-shadow-grey-soft {
   text-shadow: 0 2px 8px rgba(120, 120, 120, 0.35);
 }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}

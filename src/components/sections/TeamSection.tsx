@@ -41,7 +41,7 @@ const items: MenuItem[] = [
     instagram: "https://instagram.com/mentor",
   },
   {
-    image: "https://picsum.photos/600/600?grayscale",
+    image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764563641/IMG-20251112-WA0013_abiahu.jpg",
     link: "https://google.com/",
     title: "Vashika Chaurasia",
     description: "Social Media Manager",
@@ -71,7 +71,7 @@ const items: MenuItem[] = [
 
 const HeroSection: React.FC = () => {
   return (
-    <section id="team" data-page-theme="light" className="relative h-[600px] w-full bg-white md:h-[650px] lg:h-[700px]">
+    <section id="team" data-page-theme="light" className="relative h-[600px] w-full overflow-x-hidden bg-white md:h-[650px] lg:h-[700px]">
       <InfiniteMenu items={items} />
     </section>
   );

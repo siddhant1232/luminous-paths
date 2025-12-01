@@ -20,7 +20,7 @@ const navLinks = [
 
 export default function Footer() {
   return (
-    <section id="contact"  data-page-theme="dark" className="relative mt-0 bg-white">
+    <section id="contact"  data-page-theme="dark" className="relative overflow-x-hidden mt-0 bg-white">
       {/* Subtle glow behind footer */}
       <div className="pointer-events-none absolute inset-x-0 -top-24 h-32 bg-gradient-to-b from-orange-500/10 via-transparent to-transparent blur-3xl" />
 
