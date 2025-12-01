@@ -68,7 +68,7 @@ const ICON_FEATURES = [
 ];
 
 /* IMAGES FOR STEP CARDS */
-const STEP_IMAGES: string[] = [radioImg, autoSwitchImg, battlefieldImg];
+const STEP_IMAGES: string[] = ['https://res.cloudinary.com/dxtewwe9a/image/upload/v1764579766/WhatsApp_Image_2025-12-01_at_13.49.42_qokuww.jpg', 'https://res.cloudinary.com/dxtewwe9a/image/upload/v1764580012/WhatsApp_Image_2025-12-01_at_13.51.46_mx53ux.jpg', 'https://res.cloudinary.com/dxtewwe9a/image/upload/v1764580048/WhatsApp_Image_2025-12-01_at_13.55.29_yirdl1.jpg'];
 
 /* ------------------ HOOK ------------------ */
 
