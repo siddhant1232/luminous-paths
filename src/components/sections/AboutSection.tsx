@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useRef, useState } from "react";
 import {
   MapPin,
@@ -12,7 +10,7 @@ import {
   Bell,
 } from "lucide-react";
 
-/* ----------- IMPORT YOUR IMAGES HERE ----------- */
+/* IMAGES */
 import radioImg from "../../assets/radio.jpg";
 import autoSwitchImg from "../../assets/auto-switch.jpg";
 import battlefieldImg from "../../assets/battlefield.jpg";
@@ -29,19 +27,19 @@ const FEATURES: Feature[] = [
   {
     title: "Seamless two-way radio",
     description:
-      "Command the field with seamless two-way communication over VHF/UHF networks. Experience brutal clarity, precision noise suppression, and ironclad encrypted links. Purpose-built for operations where range, reliability, and security must outperform everything else.",
+      "Crystal-clear field communication over VHF/UHF networks. Noise suppression, encrypted channels, and reliability under any condition.",
     image: radioImg,
   },
   {
     title: "Multi-network auto-switch",
     description:
-      "Command the field with seamless two-way communication over VHF/UHF networks. Experience brutal clarity, precision noise suppression, and ironclad encrypted links. Purpose-built for operations where range, reliability, and security must outperform everything else.",
+      "Zero-interruption switching between radio, GSM, and satellite — ensuring teams stay connected under every scenario.",
     image: autoSwitchImg,
   },
   {
     title: "Built for the battlefield",
     description:
-      "Command the field with seamless two-way communication over VHF/UHF networks. Experience brutal clarity, precision noise suppression, and ironclad encrypted links. Purpose-built for operations where range, reliability, and security must outperform everything else.",
+      "Designed to survive dust, shock, signal loss, and long deployments, while maintaining mission-ready performance.",
     image: battlefieldImg,
   },
 ];
@@ -60,16 +58,16 @@ const IMPACT_ZONES = [
 
 const ICON_FEATURES = [
   { icon: MapPin, label: "Live map" },
-  { icon: BatteryCharging, label: "Battery health" },
-  { icon: Wifi, label: "Network mode" },
-  { icon: Siren, label: "SOS alerts" },
-  { icon: LocateFixed, label: "Geofencing" },
-  { icon: Clock, label: "Mission replay" },
-  { icon: Smartphone, label: "App dashboard" },
-  { icon: Bell, label: "Instant notifications" },
+  { icon: BatteryCharging, label: "Battery" },
+  { icon: Wifi, label: "Network" },
+  { icon: Siren, label: "SOS" },
+  { icon: LocateFixed, label: "Geofence" },
+  { icon: Clock, label: "Replay" },
+  { icon: Smartphone, label: "Dashboard" },
+  { icon: Bell, label: "Alerts" },
 ];
 
-/* ------------------ HOOK FOR SCROLL ANIMATIONS ------------------ */
+/* ------------------ HOOK ------------------ */
 
 function useReveal() {
   const ref = useRef(null);
@@ -77,88 +75,40 @@ function useReveal() {
 
   useEffect(() => {
     if (!ref.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.2 }
+    const obs = new IntersectionObserver(
+      ([entry]) => entry.isIntersecting && setVisible(true),
+      { threshold: 0.25 }
     );
-
-    observer.observe(ref.current);
-
-    return () => observer.disconnect();
+    obs.observe(ref.current);
+    return () => obs.disconnect();
   }, []);
 
   return [ref, visible] as const;
 }
 
-/* ------------------ COMPONENT ------------------ */
+/* ------------------ MAIN COMPONENT ------------------ */
 
 export default function AboutSection() {
   return (
-    <section id="about" data-page-theme="light" className="relative py-20  text-neutral-900 bg-gradient-to-br from-neutral-50 to-blue-50/40 ">
-      <div className="pointer-events-none absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-neutral-50 via-transparent to-transparent" />
+    <section
+      id="about"
+      className=" bg-gradient-to-br from-neutral-50 to-blue-50/40 text-neutral-900
+        relative py-24 
+        overflow-hidden
+      "
+    >
+      {/* BACKGROUND GRID */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.04),transparent)] pointer-events-none" />
+      <div className="absolute inset-0 opacity-[0.04] bg-[url('/grid.svg')] bg-cover" />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-36">
-        
-        {/* =============== FEATURE ROWS =============== */}
-        {FEATURES.map((feature, index) => {
-          const isReverse = index % 2 === 1;
-          const [ref, visible] = useReveal();
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-36 relative z-10">
 
-          return (
-            <div
-              ref={ref}
-              key={feature.title}
-              className={`
-                grid grid-cols-1 md:grid-cols-2 items-center gap-24 
-                transition-all duration-[900ms] ease-out 
-                ${
-                  visible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-10"
-                }
-              `}
-            >
-              {/* TEXT */}
-              <div
-                className={`space-y-6 ${
-                  isReverse ? "md:order-2" : "md:order-1"
-                }`}
-              >
-                <h3 className="text-3xl sm:text-4xl font-semibold text-orange-600 tracking-tight">
-                  {feature.title}
-                </h3>
+        {/* ===================== FEATURE ROWS ===================== */}
+        {FEATURES.map((feature, i) => (
+          <FeatureRow key={i} feature={feature} reverse={i % 2 === 1} />
+        ))}
 
-                <p className="text-lg text-neutral-700 leading-relaxed max-w-lg">
-                  {feature.description}
-                </p>
-              </div>
-
-              {/* IMAGE BOX */}
-              <div
-                className={`flex ${
-                  isReverse ? "justify-start" : "justify-end"
-                } ${isReverse ? "md:order-1" : "md:order-2"}`}
-              >
-                <img
-                  src={feature.image}
-                  alt={feature.title}
-                  className="
-                    w-44 h-44 sm:w-60 sm:h-60 lg:w-80 lg:h-80 
-                    rounded-[32px] bg-neutral-200 object-cover
-                    shadow-[0_18px_40px_rgba(0,0,0,0.2)]
-                    hover:shadow-[0_24px_50px_rgba(0,0,0,0.28)]
-                    transition-all duration-300
-                  "
-                />
-              </div>
-            </div>
-          );
-        })}
-
-        {/* ===================== OTHER SECTIONS ===================== */}
+        {/* ===================== EXTRA SECTIONS ===================== */}
         <div className="space-y-28">
           <StepCards />
           <FeaturesGrid />
@@ -166,6 +116,61 @@ export default function AboutSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+/* ===================== FEATURE ROW ===================== */
+
+function FeatureRow({ feature, reverse }: { feature: Feature; reverse: boolean }) {
+  const [ref, visible] = useReveal();
+
+  return (
+    <div
+      ref={ref}
+      className={`
+        grid grid-cols-1 md:grid-cols-2 items-center gap-24 
+        transition-all duration-[900ms]
+        ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
+      `}
+    >
+      {/* TEXT */}
+      <div className={`${reverse ? "md:order-2" : ""} space-y-6`}>
+        {/* ORANGE LINE */}
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-8 bg-orange-500 rounded-full" />
+          <span className="text-xs font-semibold tracking-[0.2em] text-neutral-700">
+            MMTT SYSTEM
+          </span>
+        </div>
+
+        <h3 className="text-4xl font-bold text-black">{feature.title}</h3>
+
+        <p className="text-lg text-neutral-600 leading-relaxed max-w-lg">
+          {feature.description}
+        </p>
+      </div>
+
+      {/* IMAGE */}
+      <div className={`${reverse ? "md:order-1 justify-start" : "justify-end"} flex`}>
+        <div className="relative group">
+          <div className="
+            absolute inset-0 rounded-[32px] 
+            bg-orange-400/20 blur-2xl opacity-40 
+            group-hover:opacity-60 transition-all
+          " />
+          <img
+            src={feature.image}
+            alt={feature.title}
+            className="
+              w-44 h-44 sm:w-60 sm:h-60 lg:w-80 lg:h-80 
+              rounded-[32px] object-cover
+              shadow-[0_18px_40px_rgba(0,0,0,0.25)]
+              transition-all duration-300 group-hover:-translate-y-2
+            "
+          />
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -179,63 +184,52 @@ function StepCards() {
       ref={ref}
       className={`
         grid gap-12 md:grid-cols-3
-        transition-all duration-[900ms] ease-out
-        ${
-          visible
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-10"
-        }
+        transition-all duration-[1000ms]
+        ${visible ? "opacity-100" : "opacity-0 translate-y-12"}
       `}
     >
-      {MODES.map((mode, index) => {
-        const isMiddle = index === 1;
-        return (
-          <div
-            key={mode.step}
-            className="
-              relative flex flex-col items-center rounded-[32px] 
-              border border-neutral-900 bg-black px-10 py-16 text-white 
-              shadow-[0_22px_45px_rgba(0,0,0,0.75)]
-              transition-all duration-300 hover:-translate-y-2
-            "
-          >
-            {/* Glow behind cards */}
-            <div className="absolute inset-0 -z-10 rounded-[32px] bg-gradient-to-b from-orange-400/10 via-amber-300/5 to-transparent blur-xl" />
+      {MODES.map((mode, index) => (
+        <div
+          key={mode.step}
+          className="
+            relative flex flex-col items-center 
+            rounded-[28px] bg-black text-white
+            px-10 py-16 
+            shadow-[0_22px_45px_rgba(0,0,0,0.45)]
+            border border-neutral-800
+            overflow-hidden
+            transition-all duration-300 hover:-translate-y-2
+          "
+        >
+          {/* ORANGE HIGHLIGHT */}
+          <div className="
+            absolute inset-x-0 top-0 h-1 
+            bg-gradient-to-r from-orange-500 via-orange-400 to-orange-600
+          " />
 
-            <IconShape index={index} />
+          <IconShape index={index} />
 
-            <p className="mt-12 text-xs text-neutral-400">{mode.step}</p>
-            <p
-              className={`mt-2 text-lg ${
-                isMiddle ? "font-semibold" : "font-medium"
-              }`}
-            >
-              {mode.title}
-            </p>
-          </div>
-        );
-      })}
+          <p className="mt-12 text-xs text-neutral-400">{mode.step}</p>
+          <p className="mt-2 text-lg font-semibold">{mode.title}</p>
+        </div>
+      ))}
     </div>
   );
 }
 
-/* Shapes inside cards */
+/* SHAPES INSIDE THE CARDS */
 function IconShape({ index }: { index: number }) {
   return (
-    <div className="flex h-28 w-28 items-center justify-center rounded-3xl bg-neutral-900">
-      {index === 0 && (
-        <div className="h-12 w-12 rounded-md bg-neutral-100/20" />
-      )}
-      {index === 1 && (
-        <div className="h-14 w-14 rounded-full bg-neutral-100/20" />
-      )}
+    <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-neutral-900">
+      {index === 0 && <div className="h-10 w-10 rounded-md bg-white/10" />}
+      {index === 1 && <div className="h-12 w-12 rounded-full bg-white/10" />}
       {index === 2 && (
         <div
           className="h-0 w-0"
           style={{
-            borderLeft: "22px solid transparent",
-            borderRight: "22px solid transparent",
-            borderBottom: "38px solid rgba(255,255,255,0.18)",
+            borderLeft: "18px solid transparent",
+            borderRight: "18px solid transparent",
+            borderBottom: "32px solid rgba(255,255,255,0.15)",
           }}
         />
       )}
@@ -252,7 +246,7 @@ function FeaturesGrid() {
     <div
       ref={ref}
       className={`
-        grid grid-cols-4 gap-y-20 place-items-center 
+        grid grid-cols-4 gap-y-20 place-items-center
         transition-all duration-[1000ms]
         ${
           visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
@@ -260,14 +254,17 @@ function FeaturesGrid() {
       `}
     >
       {ICON_FEATURES.map(({ icon: Icon, label }) => (
-        <div
-          key={label}
-          className="flex flex-col items-center hover:-translate-y-1 transition-all"
-        >
-          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full border-2 border-black bg-lime-50/40 shadow-[0_8px_18px_rgba(110,231,183,0.25)]">
-            <Icon className="h-7 w-7 text-black" strokeWidth={1.4} />
+        <div key={label} className="flex flex-col items-center">
+          <div className="
+            h-14 w-14 flex items-center justify-center
+            rounded-full border-2 border-black
+            bg-white shadow-[0_8px_18px_rgba(0,0,0,0.15)]
+            hover:-translate-y-1 hover:shadow-xl 
+            transition-all
+          ">
+            <Icon className="h-6 w-6 text-black" />
           </div>
-          <span className="text-sm font-medium text-black">{label}</span>
+          <span className="text-sm font-semibold text-black mt-3">{label}</span>
         </div>
       ))}
     </div>
@@ -275,6 +272,7 @@ function FeaturesGrid() {
 }
 
 /* ===================== IMPACT ZONES ===================== */
+/* ===================== IMPACT ZONES — ENHANCED CLEAN WHITE DESIGN ===================== */
 
 function Zones() {
   const [ref, visible] = useReveal();
@@ -283,22 +281,57 @@ function Zones() {
     <div
       ref={ref}
       className={`
-        grid grid-cols-1 sm:grid-cols-3 gap-16 text-center
-        transition-all duration-[1000ms]
-        ${
-          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }
+        relative
+        grid grid-cols-1 sm:grid-cols-3 gap-10
+        transition-all duration-[900ms]
+        ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
       `}
     >
-      {IMPACT_ZONES.map((zone) => (
+
+      {IMPACT_ZONES.map((zone, index) => (
         <div
           key={zone.label}
-          className="hover:-translate-y-2 transition-all duration-300"
+          className="
+            relative flex flex-col items-center text-center
+            px-8 py-10
+            bg-white/90 backdrop-blur-md
+            border border-neutral-200
+            rounded-[28px]
+            shadow-[0_6px_18px_rgba(0,0,0,0.08)]
+            hover:shadow-[0_12px_28px_rgba(0,0,0,0.12)]
+            hover:-translate-y-1
+            transition-all duration-300
+          "
         >
-          <p className="text-2xl font-semibold text-orange-600">
+          {/* ORANGE CIRCLE GLOW */}
+          <div className="
+            absolute -z-10 inset-0 
+            bg-gradient-to-b from-orange-500/10 to-transparent 
+            opacity-40 rounded-[28px]
+          " />
+
+          {/* TOP LABEL */}
+          <p className="text-xs font-semibold tracking-[0.25em] text-neutral-500 mb-3">
+            ZONE {index + 1}
+          </p>
+
+          {/* MAIN LABEL */}
+          <p className="text-3xl font-bold text-orange-600 drop-shadow-sm">
             {zone.label}
           </p>
-          <p className="text-lg text-neutral-800">{zone.sub}</p>
+
+          {/* SUB TEXT */}
+          <p className="text-lg text-neutral-800 mt-1">
+            {zone.sub}
+          </p>
+
+          {/* DIVIDER */}
+          <div className="mt-6 h-[2px] w-16 bg-gradient-to-r from-orange-500 to-black/20 rounded-full" />
+
+          {/* TEXT */}
+          <p className="mt-4 text-sm text-neutral-600 leading-relaxed max-w-[260px]">
+            Strategically optimized for deployment, command, and full-force coordination.
+          </p>
         </div>
       ))}
     </div>
