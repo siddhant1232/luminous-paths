@@ -134,48 +134,59 @@ function FeatureRow({
 }) {
   const [ref, visible] = useReveal();
 
+  const imageColClasses = reverse
+    ? "flex justify-center md:order-1 md:justify-start"
+    : "flex justify-center md:justify-end";
+
   return (
     <div
       ref={ref}
       className={`
-        grid grid-cols-1 md:grid-cols-2 items-center gap-24 
+        grid grid-cols-1 md:grid-cols-2 items-center
+        gap-16 md:gap-24
         transition-all duration-[900ms]
         ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
       `}
     >
-      <div className={`${reverse ? "md:order-2" : ""} space-y-6`}>
-        <div className="flex items-center gap-2">
+      {/* TEXT */}
+      <div
+        className={`
+          ${reverse ? "md:order-2" : ""}
+          space-y-6
+          text-center md:text-left
+        `}
+      >
+        <div className="flex items-center justify-center md:justify-start gap-2">
           <div className="w-2 h-8 bg-orange-500 rounded-full" />
           <span className="text-xs font-semibold tracking-[0.2em] text-neutral-700">
             MMTT SYSTEM
           </span>
         </div>
 
-        <h3 className="text-4xl font-bold text-black">{feature.title}</h3>
+        <h3 className="text-3xl sm:text-4xl font-bold text-black">
+          {feature.title}
+        </h3>
 
-        <p className="text-lg text-neutral-600 leading-relaxed max-w-lg">
+        <p className="text-base sm:text-lg text-neutral-600 leading-relaxed max-w-lg mx-auto md:mx-0">
           {feature.description}
         </p>
       </div>
 
-      <div
-        className={`${
-          reverse ? "md:order-1 justify-start" : "justify-end"
-        } flex`}
-      >
+      {/* IMAGE */}
+      <div className={imageColClasses}>
         <div className="relative group">
           <div
             className="
-            absolute inset-0 rounded-[32px] 
-            bg-orange-400/20 blur-2xl opacity-40 
-            group-hover:opacity-60 transition-all
-          "
+              absolute inset-0 rounded-[32px] 
+              bg-orange-400/20 blur-2xl opacity-40 
+              group-hover:opacity-60 transition-all
+            "
           />
           <img
             src={feature.image}
             alt={feature.title}
             className="
-              w-44 h-44 sm:w-60 sm:h-60 lg:w-80 lg:h-80 
+              w-48 h-48 sm:w-60 sm:h-60 lg:w-80 lg:h-80 
               rounded-[32px] object-cover
               shadow-[0_18px_40px_rgba(0,0,0,0.25)]
               transition-all duration-300 group-hover:-translate-y-2
@@ -186,6 +197,7 @@ function FeatureRow({
     </div>
   );
 }
+
 
 /* ===================== STEP CARDS — SHORTER VERSION ===================== */
 

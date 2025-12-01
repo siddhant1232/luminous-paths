@@ -32,7 +32,7 @@ const items: MenuItem[] = [
     instagram: "https://instagram.com/mentor",
   },
   {
-    image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764529997/WhatsApp_Image_2025-11-29_at_12.17.57_c6yjnx.jpg",
+    image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764586658/WhatsApp_Image_2025-12-01_at_16.13.38_mxpxzy.jpg",
     link: "https://google.com/",
     title: "Siddharth Mishra",
     description: "Software Team – App Developer",
