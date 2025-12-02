@@ -61,9 +61,9 @@ const items: MenuItem[] = [
     link: "https://google.com/",
     title: "Abhishek Kumar",
     description: "Mentor",
-    github: "https://github.com/mentor",
-    linkedin: "https://linkedin.com/in/mentor",
-    instagram: "https://instagram.com/mentor",
+    github: "https://github.com/Abhi2790",
+    linkedin: "https://www.linkedin.com/in/abhishek-461295338",
+    instagram: "https://www.instagram.com/abhi_shek_2790?igsh=OHM2Nnh3ZGUxYXln",
   },
 ];
 
