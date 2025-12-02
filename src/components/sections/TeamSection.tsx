@@ -23,7 +23,7 @@ const items: MenuItem[] = [
     instagram: "https://www.instagram.com/_random_rohit?igsh=MnZ4dDdneG53YnFz&utm_source=qr",
   },
   {
-    image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764530008/WhatsApp_Image_2025-11-29_at_12.26.07_yv23kf.jpg",
+    image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764654602/WhatsApp_Image_2025-12-02_at_11.18.35_nfqqgq.jpg",
     link: "https://google.com/",
     title: "Srijan Prasad",
     description: "Team Leader",
