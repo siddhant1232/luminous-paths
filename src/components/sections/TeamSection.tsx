@@ -18,9 +18,9 @@ const items: MenuItem[] = [
     link: "https://google.com/",
     title: "Rohit Sharma",
     description: "Hardware Team Lead",
-    github: "https://github.com/mentor",
-    linkedin: "https://linkedin.com/in/mentor",
-    instagram: "https://instagram.com/mentor",
+    github: "https://github.com/RandomRohit-hub",
+    linkedin: "https://www.linkedin.com/in/rohit-sharma-441b20297?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
+    instagram: "https://www.instagram.com/_random_rohit?igsh=MnZ4dDdneG53YnFz&utm_source=qr",
   },
   {
     image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764530008/WhatsApp_Image_2025-11-29_at_12.26.07_yv23kf.jpg",
