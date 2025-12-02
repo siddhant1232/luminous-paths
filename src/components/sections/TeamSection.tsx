@@ -57,7 +57,7 @@ const items: MenuItem[] = [
     instagram: "https://www.instagram.com/sambhav_sahu_?igsh=cmpiZmZ3dG5vcXg0",
   },
   {
-    image: "https://picsum.photos/600/600?grayscale",
+    image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764654646/1_waomkv.jpg",
     link: "https://google.com/",
     title: "Abhishek Kumar",
     description: "Mentor",
