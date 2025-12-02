@@ -14,7 +14,7 @@ const items: MenuItem[] = [
     instagram: "https://www.instagram.com/_siddhan_t_/",
   },
   {
-    image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764529990/WhatsApp_Image_2025-11-29_at_12.12.40_tylgu1.jpg",
+    image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764654328/WhatsApp_Image_2025-12-02_at_11.14.06_cekehl.jpg",
     link: "https://google.com/",
     title: "Rohit Sharma",
     description: "Hardware Team Lead",
