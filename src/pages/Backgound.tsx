@@ -7,6 +7,7 @@ import Index from "./Index";
 import NotFound from "./NotFound";
 import Gallary from "./gallary";
 import Documentaion from "./doucmentaion";
+import Gallery from "./gallary";
 
 
 const queryClient = new QueryClient();
@@ -29,7 +30,7 @@ const Background = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/gallary" element={<Gallary />} />
+            <Route path="/gallary" element={<Gallery/>} />
             <Route path="/docs" element={<Documentaion />} />
             {/* Add all routes above this */}
             <Route path="*" element={<NotFound />} />

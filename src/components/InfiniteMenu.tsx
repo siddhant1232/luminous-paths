@@ -616,7 +616,7 @@ class ArcballControl {
 
 export interface MenuItem {
   image: string;
-  link: string;
+  link?: string;
   title: string;
   description: string;
   github?: string;
@@ -1550,7 +1550,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
             </div>
           </div>
 
-          {/* DESKTOP CENTER CTA BUTTON */}
+          {/* DESKTOP CENTER CTA BUTTON
           <button
             onClick={handleItemClick}
             className={`
@@ -1585,7 +1585,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
             <span className="relative inline-flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-orange-600 text-slate-900 font-bold shadow-md">
               ↗
             </span>
-          </button>
+          </button> */}
 
           {/* MOBILE / TABLET OVERLAY CARD (lg:hidden) */}
           <div

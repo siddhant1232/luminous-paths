@@ -6,7 +6,7 @@ import InfiniteMenu, { MenuItem } from "@/components/InfiniteMenu";
 const items: MenuItem[] = [
   {
     image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764530630/WhatsApp_Image_2025-12-01_at_00.53.36_dcfnvm.jpg",
-    link: "https://google.com/",
+
     title: "Siddhant Gupta",
     description: "Software Team Lead – Web Developer",
     github: "https://github.com/siddhant1232",
@@ -15,7 +15,7 @@ const items: MenuItem[] = [
   },
   {
     image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764654328/WhatsApp_Image_2025-12-02_at_11.14.06_cekehl.jpg",
-    link: "https://google.com/",
+
     title: "Rohit Sharma",
     description: "Hardware Team Lead",
     github: "https://github.com/RandomRohit-hub",
@@ -24,7 +24,7 @@ const items: MenuItem[] = [
   },
   {
     image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764654602/WhatsApp_Image_2025-12-02_at_11.18.35_nfqqgq.jpg",
-    link: "https://google.com/",
+
     title: "Srijan Prasad",
     description: "Team Leader",
     github: "https://github.com/Srijanprasad",
@@ -33,7 +33,7 @@ const items: MenuItem[] = [
   },
   {
     image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764657815/WhatsApp_Image_2025-12-02_at_11.30.17_xem8ti.jpg",
-    link: "https://google.com/",
+
     title: "Siddharth Mishra",
     description: "Software Team – App Developer",
     github: "https://github.com/siddharth382004",
@@ -42,7 +42,7 @@ const items: MenuItem[] = [
   },
   {
     image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764563641/IMG-20251112-WA0013_abiahu.jpg",
-    link: "https://google.com/",
+
     title: "Vashika Chaurasia",
     description: "Social Media Manager",
     linkedin: "https://www.linkedin.com/in/vanshika-chaurasia-2736aa2b2",
@@ -50,7 +50,7 @@ const items: MenuItem[] = [
   },
   {
     image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764530002/WhatsApp_Image_2025-11-29_at_12.20.57_rsnc0w.jpg",
-    link: "https://google.com/",
+
     title: "Sambhav Sahu",
     description: "Hardware Assistant",
     linkedin: "https://www.linkedin.com/in/sambhav-sahu-a9859039a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
@@ -58,7 +58,7 @@ const items: MenuItem[] = [
   },
   {
     image: "https://res.cloudinary.com/dxtewwe9a/image/upload/v1764654646/1_waomkv.jpg",
-    link: "https://google.com/",
+
     title: "Abhishek Kumar",
     description: "Mentor",
     github: "https://github.com/Abhi2790",
