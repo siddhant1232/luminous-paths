@@ -102,9 +102,9 @@ const TEAM_LOGO_URL ="https://res.cloudinary.com/dxtewwe9a/image/upload/v1764359
 
 const MMTTDocumentationPage: React.FC = () => {
   return (
-    // ✅ Add top padding equal to navbar height so content is not hidden
+
     <div className="min-h-screen bg-slate-950 text-slate-100 pt-[3.25rem]">
-      {/* Navbar is now FIXED, always on top */}
+
       <header className="fixed inset-x-0 top-0 z-40 border-b border-slate-800 bg-slate-950/90 backdrop-blur">
         <div className="flex items-center justify-between px-4 py-3 lg:pl-6 lg:pr-8">
           <div className="flex items-center gap-3">
@@ -136,7 +136,7 @@ const MMTTDocumentationPage: React.FC = () => {
         </div>
       </header>
 
-      {/* Sidebar already positioned under navbar using top-[3.25rem] */}
+
       <aside className="pointer-events-auto fixed left-0 top-[3.25rem] hidden h-[calc(100vh-3.25rem)] w-64 border-r border-slate-800 bg-slate-950/95 px-4 py-4 text-sm backdrop-blur lg:block">
         <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
           On this page

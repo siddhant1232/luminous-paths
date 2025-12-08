@@ -21,7 +21,7 @@ const Home: React.FC = () => {
         <div className="mx-auto max-w-6xl">
           <div className="flex items-center justify-between">
             {/* Logo + Title */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-0">
               <div className="flex h-20 w-20 items-center justify-center">
                 <img
                   src="https://res.cloudinary.com/dxtewwe9a/image/upload/v1764396504/teamicon_feiai7.png"
