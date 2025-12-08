@@ -97,17 +97,23 @@ const dataParameters: DataParam[] = [
       "Triggers high-priority alert and location pin at Command Center.",
   },
 ];
+const TEAM_LOGO_URL ="https://res.cloudinary.com/dxtewwe9a/image/upload/v1764359375/teamicon_f5ttgc.jpg"; 
+
 
 const MMTTDocumentationPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
-      {/* Top Navbar */}
-      <header className="sticky top-0 z-30 border-b border-slate-800 bg-slate-950/90 backdrop-blur">
-        {/* NOTE: only pl-64 on lg, no max-w/mx-auto */}
-        <div className="flex items-center justify-between px-4 py-3 lg:pl-64 lg:pr-8">
+    // ✅ Add top padding equal to navbar height so content is not hidden
+    <div className="min-h-screen bg-slate-950 text-slate-100 pt-[3.25rem]">
+      {/* Navbar is now FIXED, always on top */}
+      <header className="fixed inset-x-0 top-0 z-40 border-b border-slate-800 bg-slate-950/90 backdrop-blur">
+        <div className="flex items-center justify-between px-4 py-3 lg:pl-6 lg:pr-8">
           <div className="flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-md bg-sky-500/10 ring-1 ring-sky-500/40">
-              <span className="text-xs font-bold text-sky-300">MM</span>
+             <img
+                src={TEAM_LOGO_URL}
+                alt="Team logo"
+                className="h-8 w-8 rounded-md object-cover bg-sky-500/10 ring-1 ring-sky-500/40"
+              />
             </div>
             <div className="leading-tight">
               <p className="text-sm font-semibold tracking-tight">
@@ -130,7 +136,7 @@ const MMTTDocumentationPage: React.FC = () => {
         </div>
       </header>
 
-      {/* Fixed Sidebar (Desktop) */}
+      {/* Sidebar already positioned under navbar using top-[3.25rem] */}
       <aside className="pointer-events-auto fixed left-0 top-[3.25rem] hidden h-[calc(100vh-3.25rem)] w-64 border-r border-slate-800 bg-slate-950/95 px-4 py-4 text-sm backdrop-blur lg:block">
         <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
           On this page
@@ -237,7 +243,6 @@ const MMTTDocumentationPage: React.FC = () => {
       </aside>
 
       {/* Main Content */}
-      {/* NOTE: no ml / max-w / mx-auto here, just padding-left to clear sidebar */}
       <main className="pb-16 pt-6 lg:pl-64">
         <div className="px-4 sm:px-6 lg:px-8">
           {/* Breadcrumbs */}
@@ -604,11 +609,11 @@ const MMTTDocumentationPage: React.FC = () => {
               </h3>
               <p className="mt-2">
                 MMTT directly addresses BSF&apos;s need for{" "}
-                  <strong>uninterrupted, simplified communication</strong> in
-                  border environments. It offers a{" "}
-                  <strong>low-cost, high-impact</strong> solution that strengthens
-                  force coordination, situational awareness, and troop safety for
-                  critical missions.
+                <strong>uninterrupted, simplified communication</strong> in
+                border environments. It offers a{" "}
+                <strong>low-cost, high-impact</strong> solution that strengthens
+                force coordination, situational awareness, and troop safety for
+                critical missions.
               </p>
             </div>
 
