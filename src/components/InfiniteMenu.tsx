@@ -1243,7 +1243,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
       className={`
         relative w-full max-w-[100vw]
         min-h-[520px] sm:min-h-[640px] md:min-h-[780px] lg:min-h-[720px]
-        pb-16 sm:pb-20 md:pb-24  /* extra bottom space so card doesn’t touch next section */
+        pb-16 sm:pb-20 md:pb-24  
         bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.16)_0,_transparent_55%),radial-gradient(circle_at_bottom,_rgba(15,23,42,0.12)_0,_transparent_55%),linear-gradient(to_br,#f8fafc,#ffffff)]
         overflow-hidden 
         ${className}
@@ -1269,29 +1269,50 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
         `}
       />
 
-      {/* TOP HINT TEXT */}
-      <div
-        className={`
-          pointer-events-none
-          absolute top-4 left-1/2 -translate-x-1/2
-          z-20
-          transition-all duration-500
-          ${hasEntered ? "opacity-80" : "opacity-0"}
-          ${isMoving ? "opacity-40" : ""}
-        `}
-      >
-        <div className="inline-flex items-center gap-3 rounded-full bg-white/80 px-4 py-1.5 shadow-sm border border-slate-200/70 backdrop-blur-sm">
-          <span className="flex items-center gap-1 text-xs text-slate-700">
-            <span className="w-1 h-1 bg-slate-500 rounded-full" />
-            Drag to rotate
-          </span>
-          <span className="w-[1px] h-3 bg-slate-300" />
-          <span className="hidden sm:flex items-center gap-1 text-xs text-slate-700">
-            <span className="w-1 h-1 bg-slate-500 rounded-full" />
-            Tap discs to explore each member
-          </span>
-        </div>
-      </div>
+      {/* BOTTOM HINT TEXT – below sphere */}
+<div
+  className={`
+    pointer-events-none
+    absolute
+    left-1/2
+    bottom-28 sm:bottom-28 md:bottom-32
+    -translate-x-1/2
+    z-20
+    transform-gpu
+    transition-all duration-500
+    ${hasEntered ? "opacity-90 translate-y-0" : "opacity-0 translate-y-2"}
+    ${isMoving ? "opacity-50" : ""}
+  `}
+>
+  <div
+    className="
+      inline-flex items-center gap-3
+      rounded-full border border-slate-200/70
+      bg-white/90 backdrop-blur-md
+      px-4 sm:px-5 py-1.5
+      shadow-[0_10px_30px_rgba(15,23,42,0.15)]
+    "
+  >
+    {/* Icon bubble */}
+    <div className="relative flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-orange-400/90 to-amber-500/90 text-[13px] shadow-md">
+      <span className="relative text-white">↻</span>
+      <span className="pointer-events-none absolute inset-0 rounded-full border border-white/40/70 mix-blend-screen" />
+    </div>
+
+    {/* Text */}
+    <div className="flex flex-col">
+      <span className="flex items-center gap-1 text-[11px] font-semibold tracking-[0.12em] text-slate-500 uppercase">
+        Drag to rotate
+      </span>
+      <span className="hidden sm:inline text-[11px] text-slate-600">
+        Spin the sphere &amp; pause to spotlight a member.
+      </span>
+      <span className="sm:hidden text-[11px] text-slate-600">
+        Drag to explore your core team.
+      </span>
+    </div>
+  </div>
+</div>
 
       {/* ENTRY HINT OVERLAY */}
       {showIntroHint && !isLoading && !error && (
