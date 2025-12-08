@@ -253,7 +253,7 @@ const MMTTDocumentationPage: React.FC = () => {
             className="rounded-xl border border-slate-800 bg-gradient-to-br from-sky-950/70 via-slate-950 to-slate-950 p-6 shadow-lg shadow-sky-900/30 sm:p-8"
           >
             <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl">
-              🚀 MMTT: Multi-Mode Tactical Tracker{" "}
+              MMTT: Multi-Mode Tactical Tracker{" "}
               <span className="text-sky-400">(SIH 2025 Edition)</span>
             </h1>
 
