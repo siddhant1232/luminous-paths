@@ -115,3 +115,134 @@ body {
   max-width: 100%;
   overflow-x: hidden;
 }
+/* --- Film roll gallery styles --- */
+
+.film-strip-outer {
+  position: absolute;
+  width: 170%;
+  max-width: none;
+  left: -30%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+}
+
+/* both strips now have SAME angle = parallel */
+.film-strip-outer-1 {
+  top: 5%;
+  transform: rotate(-18deg);
+}
+
+.film-strip-outer-2 {
+  bottom: 5%;
+  transform: rotate(-18deg);
+}
+
+.film-strip-inner {
+  display: flex;
+  gap: 18px;
+}
+
+/* scrolling animations */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.film-strip-inner-left {
+  animation: scroll-left 40s linear infinite;
+}
+
+.film-strip-inner-right {
+  animation: scroll-right 40s linear infinite;
+}
+
+/* pause on hover anywhere on the strip */
+.film-strip-outer:hover .film-strip-inner-left,
+.film-strip-outer:hover .film-strip-inner-right {
+  animation-play-state: paused;
+}
+
+/* helper to pause animation when something is selected */
+.animation-pause {
+  animation-play-state: paused !important;
+}
+
+/* single frame styling */
+.film-frame {
+  position: relative;
+  width: 180px;
+  padding: 10px 16px;
+  border-radius: 18px;
+  background: radial-gradient(circle at top, #1f2933, #020617);
+  box-shadow:
+    0 16px 30px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(15, 23, 42, 0.9);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+}
+
+.film-frame:hover {
+  transform: translateY(-4px);
+  background: radial-gradient(circle at top, #1f2937, #020617);
+  box-shadow:
+    0 22px 45px rgba(15, 23, 42, 0.95),
+    0 0 0 1px rgba(34, 211, 238, 0.3);
+}
+
+/* sprocket holes (film perforations) */
+.film-holes {
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  width: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.film-holes::before,
+.film-holes::after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 14px;
+  border-radius: 999px;
+  background: radial-gradient(circle, #020617 35%, #e5e7eb 45%, #020617 90%);
+}
+
+.film-holes-left {
+  left: 4px;
+}
+
+.film-holes-right {
+  right: 4px;
+}
+
+@media (max-width: 768px) {
+  .film-strip-outer {
+    width: 190%;
+    left: -45%;
+  }
+
+  .film-frame {
+    width: 150px;
+    padding: 8px 12px;
+  }
+}

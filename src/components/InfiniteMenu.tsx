@@ -1134,6 +1134,8 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [hasEntered, setHasEntered] = useState<boolean>(false);
   const [showIntroHint, setShowIntroHint] = useState<boolean>(true);
+  const [showMobileHint, setShowMobileHint] = useState<boolean>(true);
+
 
   const { firstName, lastName } = getNameParts(activeItem?.title);
   const tagline = getTaglineForItem(activeItem);
@@ -1148,6 +1150,12 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
     const timeout = setTimeout(() => setShowIntroHint(false), 4500);
     return () => clearTimeout(timeout);
   }, [showIntroHint]);
+  // useEffect(() => {
+  //   if (!showMobileHint) return;
+  //   const t = setTimeout(() => setShowMobileHint(false), 5000);
+  //   return () => clearTimeout(t);
+  // }, [showMobileHint]);
+
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -1164,8 +1172,12 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
 
     const handleMovementChange = (moving: boolean) => {
       setIsMoving(moving);
-      if (moving) setShowIntroHint(false);
+      if (moving) {
+        setShowIntroHint(false);
+        // setShowMobileHint(false); // 👈 mobile hint hides on first drag
+      }
     };
+
 
     const handleInit = (sk: InfiniteGridMenu) => {
       setIsLoading(false);
@@ -1268,6 +1280,39 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({
           ${isMoving ? "active:cursor-grabbing" : ""}
         `}
       />
+     {/* FIXED MOBILE DRAG HINT – NO COLLISION, ALL RESOLUTIONS */}
+<div
+  className="
+    lg:hidden
+    pointer-events-none
+    absolute
+    left-1/2
+    top-[52%]              /* 👈 CENTERED ABOVE CARD */
+    -translate-x-1/2
+    -translate-y-1/2
+    z-[70]
+  "
+>
+  <div
+    className="
+      flex items-center gap-2
+      rounded-full
+      border border-slate-200
+      bg-white/95
+      backdrop-blur-md
+      px-3 py-1.5
+      shadow-[0_12px_40px_rgba(15,23,42,0.35)]
+    "
+  >
+    <span className="text-base animate-pulse">👆</span>
+    <span className="text-[10px] font-semibold text-slate-700 whitespace-nowrap">
+      Drag with your finger to rotate
+    </span>
+  </div>
+</div>
+
+
+
 
       {/* BOTTOM HINT TEXT – below sphere */}
 <div
